@@ -1,0 +1,17 @@
+.form {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.input {
+    flex: 1
+}
+
+.categoriesInput {
+    margin-left: 1rem;
+}
+
+.contentTextarea {
+    flex: 1;
+    min-width: 100%
+}

@@ -1,0 +1,14 @@
+:local(.header) {
+    padding-bottom: 1rem;
+}
+
+:local(.title) {
+    text-align: center;
+    font-size: 2.5rem
+}
+
+:local(.quote h3) {
+    text-align: right;
+    color: #777
+}
+

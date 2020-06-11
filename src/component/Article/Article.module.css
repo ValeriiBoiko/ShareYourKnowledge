@@ -1,0 +1,51 @@
+.article {
+    margin-bottom: 3rem;
+}
+
+.title, .title a {
+    text-decoration: none;
+    color: #333
+}
+
+.title a:hover {
+    text-decoration: underline;
+}
+
+.content {
+    color: #777;
+    text-align: justify;
+}
+
+.metadata,
+.metadata a {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: #777;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.metadata .readMore {
+    position: relative;
+}
+
+.metadata .readMore:before,
+.metadata .readMore:after {
+    content: '';
+    display: inline-block;
+    width: 75%;
+    height: 1px;
+    background-color: #777;
+    position: absolute;
+    top: .5rem
+}
+
+.metadata .readMore:before {
+    left: -100%;
+}
+
+.metadata .readMore:after {
+    right: -100%;
+}
+
