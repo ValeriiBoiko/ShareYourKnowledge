@@ -16,9 +16,48 @@ body {
   line-height: 1.5;
 }
 
-code {
+pre.code, code {
+  background-color: #444;
+  color: #f5f5f5;
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+  font-size: 1.25rem;
+}
+
+.textarea pre.code {
+  margin: 0;
+  padding: .15rem 1rem;
+}
+
+.noMargin {
+  margin: 0;
+}
+
+.buttonGroup .buttonGroupButton {
+  display: inline-block;
+  text-decoration: none;
+  padding: .15rem .75rem;
+  color: #444;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #444;
+  border-top: 1px solid #444;
+}
+
+.buttonGroup .buttonGroupButton.active {
+  color: #f5f5f5;
+  background-color: #444;
+}
+
+.buttonGroup .buttonGroupButton:first-child {
+  border-bottom-left-radius: .25rem;
+  border-top-left-radius: .25rem;
+  border-left: 1px solid #444;
+}
+
+.buttonGroup .buttonGroupButton:last-child {
+  border-bottom-right-radius: .25rem;
+  border-top-right-radius: .25rem;
+  border-right: 1px solid #444;
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -79,7 +118,8 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .main-content {
-  flex: 1
+  display: flex;
+  flex: 1;
 }
 
 .main-pagination {
