@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './CreateArticleForm.module.css';
 import TextEditor from '../TextEditor';
+import FireStore from '../../utils/FireStore';
 
 function CreateArticleForm(props) {
+  const [content, setContent] = useState('');
 
   return (
     <form action="" className={styles.form}>
@@ -13,9 +15,11 @@ function CreateArticleForm(props) {
         <input type="text" className={styles.input + ' text-input ' + styles.categoriesInput} placeholder="react, idx, php, laravel ..." />
       </div>
       
-      <TextEditor style={{
-        flexGrow: 1
-      }} />
+      <TextEditor className={styles.textEditor} onChangeContent={(text) => {
+        console.log('onChange')
+        setContent(text);
+      }}/>
+
     </form>
   )
 }

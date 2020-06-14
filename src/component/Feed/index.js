@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { store } from '../../store';
-import { setArticlesAction, setUrlParamsAction, setIsFirstAction, setIsLastAction } from '../../actons';
+import { setArticlesAction, setUrlParamsAction, setIsFirstAction, setIsLastAction } from '../../actions';
 import FireStore from '../../utils/FireStore';
 import useQuery from '../../hooks/useQuery';
 import Feed from './Feed';

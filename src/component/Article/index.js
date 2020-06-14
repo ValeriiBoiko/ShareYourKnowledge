@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { useParams, Link } from "react-router-dom";
 import styles from './Article.module.css';
 import { store } from '../../store';
-import { setArticleAction } from '../../actons';
+import { setArticleAction } from '../../actions';
 import NotFound from '../NotFound';
 import FireStore from '../../utils/FireStore';
 import { useState } from 'react';

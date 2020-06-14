@@ -61,6 +61,18 @@ class FireStore {
             })
         });
     }
+
+    static async addArticle(title, categories, content) {
+      const document = await FireStore.db.collection("articles").add({
+        title: title,
+        categories: categories,
+        content: content,
+        autorh: 'Valerii Boiko',
+        date: new Date(),
+      })
+
+      return document;
+    }
 }
 
 export default FireStore;
