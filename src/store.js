@@ -14,6 +14,12 @@ const initialState = {
     categories: [],
     content: '',
     modifiers: [],
+  },
+  notification: {
+    visible: false,
+    message: '',
+    title: '',
+    type: ''
   }
 };
 
@@ -103,6 +109,12 @@ const StateProvider = ({ children }) => {
             ...state.newArticle,
             modifiers: action.modifiers
           }
+        };
+
+      case Action.SET_NOTIFICATION:
+        return {
+          ...state,
+          notification: action.notification
         }
 
       default:

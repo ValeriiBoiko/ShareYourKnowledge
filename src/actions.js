@@ -12,7 +12,8 @@ export const Action = {
     SET_NEW_ARTICLE_CATEGORIES: 'SET_NEW_ARTICLE_CATEGORIES',
     SET_NEW_ARTICLE_AUTHOR: 'SET_NEW_ARTICLE_AUTHOR',
     SET_NEW_ARTICLE_CONTENT: 'SET_NEW_ARTICLE_CONTENT',
-    SET_SELECTION_MODIFIERS: 'SET_SELECTION_MODIFIERS' 
+    SET_SELECTION_MODIFIERS: 'SET_SELECTION_MODIFIERS',
+    SET_NOTIFICATION: 'SET_NOTIFICATION', 
 }
 
 export const setPageAction = (pageNumber) => ({
@@ -68,4 +69,9 @@ export const setNewArticleContentAction = (content) => ({
 export const setModifiersAction = (modifiers) => ({
   type: Action.SET_SELECTION_MODIFIERS,
   modifiers: modifiers
+});
+
+export const setNotificationAction = (notification) => ({
+  type: Action.SET_NOTIFICATION,
+  notification: notification
 });

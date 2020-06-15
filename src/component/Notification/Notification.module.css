@@ -1,0 +1,35 @@
+.container {
+  position: absolute;
+  padding: 1rem;
+  background: black;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  z-index: 1000;
+  border-bottom-left-radius: .5rem;
+  border-bottom-right-radius: .5rem;
+  min-width: 150px;
+}
+
+.title {
+  margin: 0;
+  text-align: center;
+  color: #f5f5f5;
+}
+
+.message {
+  margin: 0;
+  color: #f5f5f5;
+}
+
+.success {
+  background: #0ad698;
+}
+
+.info {
+  background: #1ab2e4;
+}
+
+.error {
+  background: #c50000;
+}

@@ -21,7 +21,7 @@
 }
 
 .addButton {
-  width: 50%;
+  width: 48%;
   margin: 1rem 0 3rem;
-  align-self: flex-end;
+  /* align-self: flex-end; */
 }
