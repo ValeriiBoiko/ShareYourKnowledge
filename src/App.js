@@ -13,7 +13,7 @@ import Notification from './component/Notification';
 
 function App() {
   var provider = new firebase.auth.GithubAuthProvider();
-  const {state} = useContext(store);
+  const { state } = useContext(store);
 
   // firebase.auth().signInWithPopup(provider).then(function (result) {
   //   // This gives you a GitHub Access Token. You can use it to access the GitHub API.
@@ -39,11 +39,11 @@ function App() {
       <div className="App">
 
         {
-          state.notification.visible && 
-          <Notification 
-            type={state.notification.type} 
-            title={state.notification.title} 
-            message={state.notification.message} 
+          state.notification.visible &&
+          <Notification
+            type={state.notification.type}
+            title={state.notification.title}
+            message={state.notification.message}
           />
         }
 
@@ -53,23 +53,28 @@ function App() {
 
         <Navigation className={'main-navigation'} />
 
-        <div className="content main-content">
-          <Switch>
-            <Route path="/article/:id">
+
+        <Switch>
+          <Route path="/article/:id">
+            <div className="content main-content">
               <Article isSingle={true} />
-            </Route>
+            </div>
+          </Route>
 
-            <Route path="/feed">
+          <Route path="/feed">
+            <div className="content main-content">
               <Feed />
-            </Route>
+            </div>
+          </Route>
 
-            <Route path="/create-article">
+          <Route path="/create-article">
+            <div className="content main-content screen-height-content">
               <CreateArticleForm />
-            </Route>
-          </Switch>
+            </div>
+          </Route>
+        </Switch>
 
-          <Pagination className={'main-pagination'} />
-        </div>
+        <Pagination className={'main-pagination'} />
 
       </div>
     </Router >

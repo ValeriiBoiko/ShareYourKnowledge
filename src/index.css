@@ -121,6 +121,7 @@ h1,h2,h3,h4,h5,h6 {
   display: flex;
   flex-direction: column;
   padding-bottom: 2rem;
+  box-sizing: border-box
 }
 
 .categories .category {
@@ -140,6 +141,10 @@ h1,h2,h3,h4,h5,h6 {
 .main-content {
   display: flex;
   flex: 1;
+}
+
+.main-content.screen-height-content {
+  overflow: hidden;
 }
 
 .main-pagination {
