@@ -1,12 +1,10 @@
 import React, { useContext } from 'react';
 import { store } from '../../store';
-import styles from './Pagination.module.css';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import FooterNavigation from '../FooterNavigation';
 
 function Pagination(props) {
-    const { state, dispatch } = useContext(store);
-    const firstLinkClass = state.isFirst ? styles.disabled : '';
-    const lastLinkClass = state.isLast ? styles.disabled : '';
+    const { state } = useContext(store);
 
     const onPrevClick = e => {
         if (state.isFirst) e.preventDefault()
@@ -20,11 +18,11 @@ function Pagination(props) {
     const prevLink = state.articles.length ? '/feed?sort=asc&startAfter=' + state.articles[0].id : '/feed';
 
     return (
-        <div className={styles.wrapper + ' ' + props.className}>
-            <Link className={`${styles.item} ${firstLinkClass}`} to={prevLink} onClick={onPrevClick}>Newer articles</Link>
-            <Link className={styles.item} to="/feed">Go to first page</Link>
-            <Link className={`${styles.item} ${lastLinkClass}`} to={nextLink} onClick={onNextClick}>Older articles</Link>
-        </div >
+        <FooterNavigation className='footer-navigation'>
+            <Link disabled={state.isFirst} to={prevLink} onClick={onPrevClick}>Newer articles</Link>
+            <Link to="/feed">Go to first page</Link>
+            <Link disabled={state.isLast} to={nextLink} onClick={onNextClick}>Older articles</Link>
+        </FooterNavigation>
     )
 }
 
