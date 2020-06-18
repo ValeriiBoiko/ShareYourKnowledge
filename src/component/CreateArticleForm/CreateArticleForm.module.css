@@ -15,11 +15,10 @@
 .textEditor {
   display: flex;
   flex-direction: column;
-  height: 600px
+  height: 25rem
 }
 
 .addButton {
   width: 48%;
   margin: 1rem 0 3rem;
-  /* align-self: flex-end; */
 }

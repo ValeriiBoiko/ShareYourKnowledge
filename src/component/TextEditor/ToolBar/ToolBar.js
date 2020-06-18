@@ -3,7 +3,7 @@ import styles from '../TextEditor.module.css';
 import { store } from '../../../store';
 
 function ToolBar(props) {
-  const {state} = useContext(store);
+  const { state } = useContext(store);
   const currentModifiers = state.newArticle.modifiers;
   const headers = [
     {
@@ -49,7 +49,7 @@ function ToolBar(props) {
 
   const fontStyleOptions = fontStyles.map(item => {
     return (
-      <a className={'buttonGroupButton ' + styles.buttonGroupButton + ' ' + isActiveModifier(item.value, 'active')} 
+      <a className={'buttonGroupButton ' + styles.buttonGroupButton + ' ' + isActiveModifier(item.value, 'active')}
         key={item.value}
         href={'#'} onClick={(e) => {
           e.preventDefault();
@@ -58,10 +58,8 @@ function ToolBar(props) {
     );
   })
 
-  function isActiveModifier (modifier, returnIfActive = false) {
+  function isActiveModifier(modifier, returnIfActive = false) {
     const isActive = currentModifiers.indexOf(modifier) >= 0;
-
-    console.log(modifier, currentModifiers);
 
     if (isActive && returnIfActive) {
       return returnIfActive;
@@ -73,7 +71,7 @@ function ToolBar(props) {
   return (
     <div className={props.className}>
       <div className={styles.toolBar}>
-        
+
         <div className={'buttonGroup'}>
           {fontStyleOptions}
         </div>
@@ -85,7 +83,7 @@ function ToolBar(props) {
         </select>
 
         <div className={'buttonGroup'}>
-          <a className={'buttonGroupButton ' + styles.buttonGroupButton + ' ' + isActiveModifier('PRE', 'active')} 
+          <a className={'buttonGroupButton ' + styles.buttonGroupButton + ' ' + isActiveModifier('PRE', 'active')}
             href='#' onClick={(e) => {
               e.preventDefault();
               props.applyCodeStyle('pre', 'p', 'code', 'noMargin')

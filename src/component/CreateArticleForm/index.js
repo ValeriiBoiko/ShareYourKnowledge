@@ -7,7 +7,7 @@ import { store } from '../../store';
 import { setNotificationAction } from '../../actions';
 
 function CreateArticleForm(props) {
-  const {state, dispatch} = useContext(store);
+  const { dispatch } = useContext(store);
   const [showLoader, setShowLoader] = useState(false);
   const [content, setContent] = useState('');
 
@@ -29,21 +29,20 @@ function CreateArticleForm(props) {
 
   return (
     <form action="" className={styles.form}>
-      { showLoader && <Loader /> }
+      {showLoader && <Loader />}
       <div style={{
         display: 'flex',
       }}>
         <input type="text" className={styles.input + ' text-input ' + styles.titleInput} placeholder={'Title'} />
         <input type="text" className={styles.input + ' text-input ' + styles.categoriesInput} placeholder="react, idx, php, laravel ..." />
       </div>
-      
+
       <TextEditor className={styles.textEditor} onChangeContent={(text) => {
-        console.log('onChange')
         setContent(text);
-      }}/>
+      }} />
 
       <div className={'row justify-between'}>
-        <input type="submit" value="Back to feed" className={'button ' + styles.addButton} onClick={(e) => {
+        {/* <input type="submit" value="Back to feed" className={'button ' + styles.addButton} onClick={(e) => {
           e.preventDefault();
         }} />
 
@@ -59,7 +58,7 @@ function CreateArticleForm(props) {
               setShowLoader(false);
               showNotification('Error happend :( Try again.', 'error');
             })
-        }} />
+        }} /> */}
       </div>
     </form>
   )
