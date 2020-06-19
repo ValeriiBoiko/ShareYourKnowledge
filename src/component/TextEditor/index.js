@@ -30,7 +30,7 @@ function TextEditor(props) {
   }
 
   const onChange = (e) => {
-    props.onChangeContent(e.currentTarget.innerHTML);
+    props.onContentChange(e.currentTarget.innerHTML);
   }
 
   return (

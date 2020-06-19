@@ -62,14 +62,18 @@ class FireStore {
         });
     }
 
-    static addArticle(title, categories, content) {
-      return FireStore.db.collection("articles").add({
-        title: title,
-        categories: categories,
-        content: content,
-        autorh: 'Valerii Boiko',
-        date: new Date(),
-      })
+    static addArticle(article) {
+        if (!article.title || !article.content) {
+            throw new Error('At least article object should have non-empty "title" and "content" fields');
+        }
+
+        return FireStore.db.collection("articles").add({
+            title: title,
+            categories: categories,
+            content: content,
+            autorh: 'Valerii Boiko',
+            date: new Date(),
+        })
     }
 }
 

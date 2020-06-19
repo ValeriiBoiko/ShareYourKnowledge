@@ -1,11 +1,7 @@
-import React, { useContext } from 'react';
-import { store } from '../../store';
+import React from 'react';
 import styles from './FooterNavigation.module.css';
-import { Link } from 'react-router-dom';
 
 function FooterNavigation(props) {
-    const { state, dispatch } = useContext(store);
-
     const children = props.children.map(child => {
         if (child.props.disabled) {
             return React.cloneElement(child, {

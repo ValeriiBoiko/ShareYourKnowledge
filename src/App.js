@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Header from './component/Header';
 import Category from './component/Category';
 import Feed from './component/Feed';
 import Article from './component/Article';
-import Navigation from './component/Navigation';
 import firebase from './component/Firebase';
 import Pagination from './component/Pagination';
+import FooterNavigation from './component/FooterNavigation';
+import Navigation from './component/Navigation';
 import CreateArticleForm from './component/CreateArticleForm';
 import { store } from './store';
 import Notification from './component/Notification';
@@ -15,27 +16,8 @@ function App() {
   var provider = new firebase.auth.GithubAuthProvider();
   const { state } = useContext(store);
 
-  // firebase.auth().signInWithPopup(provider).then(function (result) {
-  //   // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-  //   var token = result.credential.accessToken;
-  //   // The signed-in user info.
-  //   var user = result.user;
-  //   // ...
-  // }).catch(function (error) {
-  //   // Handle Errors here.
-  //   var errorCode = error.code;
-  //   var errorMessage = error.message;
-  //   // The email of the user's account used.
-  //   var email = error.email;
-  //   // The firebase.auth.AuthCredential type that was used.
-  //   var credential = error.credential;
-  //   // ...
-  // });
-
-  console.log(state.notification)
-
   return (
-    < Router >
+    <Router>
       <div className="App">
 
         {
@@ -53,31 +35,31 @@ function App() {
 
         <Navigation className={'main-navigation'} />
 
+        <div className="content main-content">
 
-        <Switch>
-          <Route path="/article/:id">
-            <div className="content main-content">
+          <Switch>
+
+            <Route path="/article/:id">
               <Article isSingle={true} />
-            </div>
-          </Route>
 
-          <Route path="/feed">
-            <div className="content main-content">
+              <Pagination className={'footer-navigation'} />
+            </Route>
+
+            <Route path="/feed">
               <Feed />
-            </div>
-          </Route>
 
-          <Route path="/create-article">
-            <div className="content main-content screen-height-content">
+              <Pagination className={'footer-navigation'} />
+            </Route>
+
+            <Route path="/create-article">
               <CreateArticleForm />
-            </div>
-          </Route>
-        </Switch>
+            </Route>
 
-        <Pagination className={'main-pagination'} />
+          </Switch>
 
+        </div>
       </div>
-    </Router >
+    </Router>
   );
 }
 

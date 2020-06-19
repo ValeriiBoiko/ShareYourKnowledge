@@ -117,6 +117,12 @@ const StateProvider = ({ children }) => {
           notification: action.notification
         }
 
+      case Action.SET_ARTICLES_PER_PAGE:
+        return {
+          ...state,
+          articlesPerPage: action.value
+        }
+
       default:
         return state;
     };

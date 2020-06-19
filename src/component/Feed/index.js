@@ -37,6 +37,10 @@ function FeedContainer(props) {
     let urlParams = state.urlParams;
 
     useQuery((params) => {
+        window.scrollTo({
+            top: 0
+        });
+
         dispatch(setUrlParamsAction(params))
     })
 
@@ -59,7 +63,6 @@ function FeedContainer(props) {
 
     }, [state.urlParams])
 
-    console.log('isFirst: ', state.isFirst, 'isLast: ', state.isLast);
     return (
 
         <Feed articles={state.articles} />

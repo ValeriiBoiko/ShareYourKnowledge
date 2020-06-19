@@ -1,13 +1,16 @@
 import React, { useState, useContext } from 'react';
-import styles from './CreateArticleForm.module.css';
+import styles from './ArticleForm.module.css';
 import TextEditor from '../TextEditor';
 import FireStore from '../../utils/FireStore';
 import Loader from '../Loader';
 import { store } from '../../store';
-import { setNotificationAction } from '../../actions';
+import { setNotificationAction, setNewArticleTitleAction, setNewArticleContentAction, setNewArticleCategoriesAction } from '../../actions';
+import FooterNavigation from '../FooterNavigation';
+import { Link } from 'react-router-dom';
+import ArticleForm from './ArticleForm';
 
 function CreateArticleForm(props) {
-  const { dispatch } = useContext(store);
+  const { state, dispatch } = useContext(store);
   const [showLoader, setShowLoader] = useState(false);
   const [content, setContent] = useState('');
 
@@ -27,40 +30,58 @@ function CreateArticleForm(props) {
     }, 2000)
   }
 
+  const onTitleChange = (e) => {
+    const title = e.currentTarget.value;
+
+    if (title) {
+      setNewArticleTitleAction(title);
+    }
+  }
+
+  const onCategoryChange = (e) => {
+    const regexp = /[\w\d\-_]/;
+    const categories = e.currentTarget.value.split(/,\s?/).filter(category => regexp.test(category));
+
+    if (categories) {
+      setNewArticleCategoriesAction(categories);
+    }
+  }
+
+  const onContentChange = (e) => {
+    const content = e.currentTarget.value;
+
+    setContent(content);
+
+    if (content) {
+      setNewArticleContentAction(content);
+    }
+  }
+
+  const addArticle = () => {
+    const { title, categories, content } = state.newArticle;
+
+    setShowLoader(true);
+
+    if (title && content) {
+      FireStore.addArticle(title, categories, content)
+        .then((docRef) => {
+          setShowLoader(false);
+          showNotification('Success!', 'success');
+        })
+        .catch(error => {
+          setShowLoader(false);
+          showNotification('Error happend :( Try again.', 'error');
+        })
+    }
+  }
+
   return (
-    <form action="" className={styles.form}>
-      {showLoader && <Loader />}
-      <div style={{
-        display: 'flex',
-      }}>
-        <input type="text" className={styles.input + ' text-input ' + styles.titleInput} placeholder={'Title'} />
-        <input type="text" className={styles.input + ' text-input ' + styles.categoriesInput} placeholder="react, idx, php, laravel ..." />
-      </div>
-
-      <TextEditor className={styles.textEditor} onChangeContent={(text) => {
-        setContent(text);
-      }} />
-
-      <div className={'row justify-between'}>
-        {/* <input type="submit" value="Back to feed" className={'button ' + styles.addButton} onClick={(e) => {
-          e.preventDefault();
-        }} />
-
-        <input type="submit" value="Add article" className={'button ' + styles.addButton} onClick={(e) => {
-          e.preventDefault();
-          setShowLoader(true);
-          FireStore.addArticle('Title', '', content)
-            .then((docRef) => {
-              setShowLoader(false);
-              showNotification('Success!', 'success');
-            })
-            .catch(error => {
-              setShowLoader(false);
-              showNotification('Error happend :( Try again.', 'error');
-            })
-        }} /> */}
-      </div>
-    </form>
+    <ArticleForm
+      onTitleChange={onTitleChange}
+      onCategoryChange={onCategoryChange}
+      onContentChange={onContentChange}
+      onSubmit={addArticle}
+    />
   )
 }
 

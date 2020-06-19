@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { useParams, Link } from "react-router-dom";
 import styles from './Article.module.css';
 import { store } from '../../store';
-import { setArticleAction } from '../../actions';
+import { setArticleAction, setArticlesPerPageAction } from '../../actions';
 import NotFound from '../NotFound';
 import FireStore from '../../utils/FireStore';
 import { useState } from 'react';
@@ -46,11 +46,11 @@ function Article(props) {
             setArticle(props);
             setIsLoading(false);
         }
-    }, [])
+    }, []);
 
     if (isLoading) {
-        return null;
-        // return <Loader />
+        // return null;
+        return <Loader />
     }
 
     const content = isSingle ? article.content : article.content.substring(0, 750) + ' ...';
