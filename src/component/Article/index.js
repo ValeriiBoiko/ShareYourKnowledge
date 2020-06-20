@@ -1,29 +1,14 @@
 import React, { useContext, useEffect } from 'react';
-import { useParams, Link } from "react-router-dom";
-import styles from './Article.module.css';
+import { useParams } from "react-router-dom";
 import { store } from '../../store';
-import { setArticleAction, setArticlesPerPageAction } from '../../actions';
+import { setArticleAction } from '../../actions';
 import NotFound from '../NotFound';
 import FireStore from '../../utils/FireStore';
 import { useState } from 'react';
 import Loader from '../Loader';
+import Article from './Article';
 
-function getArticleById(articles, id) {
-  const article = articles.filter(article => article.id.toString() === id)[0];
-
-  if (article) return article;
-
-  return null;
-}
-
-function getDateFromSeconds(seconds) {
-  const date = new Date(seconds * 1000);
-  const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-
-  return date.toLocaleDateString('en-US', options)
-}
-
-function Article(props) {
+function ArticleContainer(props) {
   const { dispatch } = useContext(store);
   const [article, setArticle] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -44,51 +29,31 @@ function Article(props) {
         });
     } else {
       const regex = /<h\d>.*?<\/h\d>/gmi;
+      const content = props.content.replace(regex, '');
       let article = {
         ...props,
-        content: props.content.replace(regex, '')
+        content: content.substring(0, 750) + ' ...',
       };
-      
+
       setArticle(article);
       setIsLoading(false);
     }
   }, []);
 
-  if (isLoading) {
-    return <Loader />
-  }
-
-  const content = isSingle ? article.content : article.content.substring(0, 750) + ' ...';
-
-  const onClick = () => {
+  const openArticle = () => {
     window.scrollTo({
       top: 0
     })
     dispatch(setArticleAction(article.id));
   };
 
-  const title = isSingle ? (
-    <h2 className={styles.title} >{article.title}</h2>
-  ) : (
-      <h2 className={styles.title}><Link to={`/article/${article.id}`} onClick={onClick}>{article.title}</Link></h2>
-    );
-
   return (
-    <div className={styles.article}>
-      {title}
-      <div className={styles.content}>
-        <p dangerouslySetInnerHTML={{ __html: content }}></p>
-      </div>
-
-      <div className={styles.metadata}>
-        <span>{article.author}</span>
-        {
-          !isSingle && <span className={styles.readMore}><Link to={`/article/${article.id}`} onClick={onClick}>Read More</Link></span>
-        }
-        <span>{getDateFromSeconds(article.date.seconds)}</span>
-      </div>
-    </div >
+    isLoading ? (
+      <Loader />
+    ) : (
+        <Article {...article} onOpenArticle={openArticle} isSingle={isSingle} />
+      )
   )
 }
 
-export default Article;
+export default ArticleContainer;
