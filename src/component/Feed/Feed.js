@@ -1,21 +1,20 @@
 import React from 'react';
 import Article from '../Article';
-import Pagination from '../Pagination';
 
 function Feed(props) {
-    let articles = props.articles.sort((article, nextArticle) => {
-        return nextArticle.date.seconds - article.date.seconds;
-    });
+  let articles = props.articles.sort((article, nextArticle) => {
+    return nextArticle.date.seconds - article.date.seconds;
+  });
 
-    articles = articles.map(article => {
-        return <Article key={article.id} {...article} preview={true} />
-    });
+  articles = articles.map(article => {
+    return <Article key={article.id} {...article} preview={true} />
+  });
 
-    return (
-        <div>
-            {articles}
-        </div>
-    )
+  return (
+    <div>
+      {articles}
+    </div>
+  )
 }
 
 export default Feed;
