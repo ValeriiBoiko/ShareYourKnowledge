@@ -1,6 +1,4 @@
-import React, { useState, useContext } from 'react';
-import styles from './ArticleForm.module.css';
-import TextEditor from '../TextEditor';
+import React, { useState, useContext, Fragment, useEffect } from 'react';
 import FireStore from '../../utils/FireStore';
 import Loader from '../Loader';
 import { store } from '../../store';
@@ -12,29 +10,44 @@ import ArticleForm from './ArticleForm';
 function CreateArticleForm(props) {
   const { state, dispatch } = useContext(store);
   const [showLoader, setShowLoader] = useState(false);
-  const [content, setContent] = useState('');
+  const [isReadyToPublish, setPublishState] = useState(false);
+
+  const updatePublishState = () => {
+    if (state.newArticle.title && state.newArticle.content && state.newArticle.categories.length) {
+      if (!isReadyToPublish) {
+        setPublishState(true);
+      }
+    } else {
+      if (isReadyToPublish) {
+        setPublishState(false);
+      }
+    }
+
+  }
 
   const showNotification = (title, type) => {
     dispatch(setNotificationAction({
       type: type,
       visible: true,
-      title: title
+      title: title,
+      time: 3000
     }))
 
     setTimeout(() => {
       dispatch(setNotificationAction({
         type: null,
         visible: false,
-        title: ''
+        title: '',
+        time: 0
       }))
-    }, 2000)
+    }, 3000)
   }
 
   const onTitleChange = (e) => {
     const title = e.currentTarget.value;
 
     if (title) {
-      setNewArticleTitleAction(title);
+      dispatch(setNewArticleTitleAction(title));
     }
   }
 
@@ -43,27 +56,21 @@ function CreateArticleForm(props) {
     const categories = e.currentTarget.value.split(/,\s?/).filter(category => regexp.test(category));
 
     if (categories) {
-      setNewArticleCategoriesAction(categories);
+      dispatch(setNewArticleCategoriesAction(categories));
     }
   }
 
-  const onContentChange = (e) => {
-    const content = e.currentTarget.value;
-
-    setContent(content);
-
+  const onContentChange = (content) => {
     if (content) {
-      setNewArticleContentAction(content);
+      dispatch(setNewArticleContentAction(content));
     }
   }
 
   const addArticle = () => {
-    const { title, categories, content } = state.newArticle;
-
     setShowLoader(true);
 
-    if (title && content) {
-      FireStore.addArticle(title, categories, content)
+    if (isReadyToPublish) {
+      FireStore.addArticle(state.newArticle)
         .then((docRef) => {
           setShowLoader(false);
           showNotification('Success!', 'success');
@@ -75,13 +82,25 @@ function CreateArticleForm(props) {
     }
   }
 
+  useEffect(updatePublishState, [state.newArticle]);
+
   return (
-    <ArticleForm
-      onTitleChange={onTitleChange}
-      onCategoryChange={onCategoryChange}
-      onContentChange={onContentChange}
-      onSubmit={addArticle}
-    />
+    showLoader ? <Loader /> :
+    <Fragment>
+      <ArticleForm
+        onTitleChange={onTitleChange}
+        onCategoryChange={onCategoryChange}
+        onContentChange={onContentChange}
+        onSubmit={addArticle}
+      />
+
+      <FooterNavigation className={'footer-navigation'} >
+        <Link to={'/feed'}>Back to feed</Link>
+        <Link disabled={!isReadyToPublish} onClick={() => {
+          isReadyToPublish ? addArticle() : showNotification('Fill in all form fields', 'error');
+        }}>Publish article</Link>
+      </FooterNavigation>
+    </Fragment>
   )
 }
 
