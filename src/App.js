@@ -26,6 +26,7 @@ function App() {
             type={state.notification.type}
             title={state.notification.title}
             message={state.notification.message}
+            time={state.notification.time}
           />
         }
 
