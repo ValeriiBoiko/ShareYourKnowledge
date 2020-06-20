@@ -68,9 +68,9 @@ class FireStore {
         }
 
         return FireStore.db.collection("articles").add({
-            title: title,
-            categories: categories,
-            content: content,
+            title: article.title,
+            categories: article.categories,
+            content: article.content,
             autorh: 'Valerii Boiko',
             date: new Date(),
         })
