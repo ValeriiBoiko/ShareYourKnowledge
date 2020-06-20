@@ -4,11 +4,16 @@
   background: black;
   left: 50%;
   top: 0;
-  transform: translateX(-50%);
+  transform: translate(-50%, -100%);
   z-index: 1000;
   border-bottom-left-radius: .5rem;
   border-bottom-right-radius: .5rem;
   min-width: 150px;
+  transition: .35s all ease;
+}
+
+.container.visible {
+  transform: translate(-50%, 0%);
 }
 
 .title {
