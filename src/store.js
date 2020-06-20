@@ -19,7 +19,8 @@ const initialState = {
     visible: false,
     message: '',
     title: '',
-    type: ''
+    type: '',
+    time: 0,
   }
 };
 
@@ -98,7 +99,7 @@ const StateProvider = ({ children }) => {
           ...state,
           newArticle: {
             ...state.newArticle,
-            conten: action.content
+            content: action.content
           }
         }
 
