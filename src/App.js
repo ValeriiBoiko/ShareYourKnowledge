@@ -42,8 +42,6 @@ function App() {
 
             <Route path="/article/:id">
               <Article isSingle={true} />
-
-              <Pagination className={'footer-navigation'} />
             </Route>
 
             <Route path="/feed">

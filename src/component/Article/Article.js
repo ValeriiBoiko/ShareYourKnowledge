@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from "react-router-dom";
 import styles from './Article.module.css';
+import FooterNavigation from '../FooterNavigation';
+import FireStore from '../../utils/FireStore';
 
 function getDateFromSeconds(seconds) {
   const date = new Date(seconds * 1000);
@@ -18,20 +20,28 @@ function Article(props) {
     );
 
   return (
-    <div className={styles.article + ' ' + isSingle ? styles.isSingle : ''}>
-      {title}
-      <div className={styles.content}>
-        <p dangerouslySetInnerHTML={{ __html: props.content }}></p>
-      </div>
+    <Fragment>
+      <div className={styles.article + ' ' + isSingle ? styles.isSingle : ''}>
+        {title}
+        <div className={styles.content}>
+          <p dangerouslySetInnerHTML={{ __html: props.content }}></p>
+        </div>
 
-      <div className={styles.metadata}>
-        <span>{props.author}</span>
-        {
-          !isSingle && <span className={styles.readMore}><Link to={`/article/${props.id}`} onClick={props.onOpenArticle}>Read More</Link></span>
-        }
-        <span>{getDateFromSeconds(props.date.seconds)}</span>
-      </div>
-    </div >
+        <div className={styles.metadata}>
+          <span>{props.author}</span>
+          {
+            !isSingle && <span className={styles.readMore}><Link to={`/article/${props.id}`} onClick={props.onOpenArticle}>Read More</Link></span>
+          }
+          <span>{getDateFromSeconds(props.date.seconds)}</span>
+        </div>
+      </div >
+
+      <FooterNavigation className='footer-navigation'>
+        <Link disabled={props.isFirst} to={'/article/'} onClick={props.onPrev}>Newer articles</Link>
+        <Link to="/feed">Go to feed</Link>
+        <Link disabled={props.isLast} to={'/article/'} onClick={props.onNext}>Older articles</Link>
+      </FooterNavigation>
+    </Fragment>
   )
 }
 

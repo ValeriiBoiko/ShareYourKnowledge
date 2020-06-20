@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { store } from '../../store';
-import { setArticleAction } from '../../actions';
+import { setArticleAction, setIsFirstAction, setIsLastAction } from '../../actions';
 import NotFound from '../NotFound';
 import FireStore from '../../utils/FireStore';
 import { useState } from 'react';
@@ -9,24 +9,68 @@ import Loader from '../Loader';
 import Article from './Article';
 
 function ArticleContainer(props) {
-  const { dispatch } = useContext(store);
+  const history = useHistory();
+  const { state, dispatch } = useContext(store);
   const [article, setArticle] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const urlParams = useParams();
   const isSingle = props.preview !== null ? !props.preview : true;
 
+  /**
+   * function loads and shows article based on id passed to url
+   */
+  const showArticleFromUrl = () => {
+    FireStore.getArticleByID(urlParams.id)
+      .then(article => {
+        setArticle(article);
+        setIsLoading(false);
+      })
+      .catch(error => {
+        if (error.error === 'DOCUMENT_MISSED') {
+          return <NotFound />
+        }
+      });
+  }
+
+  /**
+   * function that show previous or next article when it is requested via footer navigation
+   * 
+   * @param {string} direction specifies if previous or next article is requested. 
+   * Possible values are 'prev' and 'next' 
+   */
+  const showSiblingArticle = (direction) => {
+    setIsLoading(true);
+
+    FireStore.getArticles(1, state.currentArticleId, direction === 'prev' ? 'asc' : 'desc')
+      .then(articles => {
+        if (articles[0]) {
+          history.push('/article/' + articles[0].id);
+          setArticle(articles[0])
+          dispatch(setArticleAction(articles[0].id));
+          if (direction === 'prev') {
+            dispatch(setIsFirstAction(false));
+          } else {
+            dispatch(setIsLastAction(false));
+          }
+        } else {
+          if (direction === 'prev') {
+            dispatch(setIsFirstAction(true));
+          } else {
+            dispatch(setIsLastAction(true));
+          }
+        }
+        setIsLoading(false);
+      })
+      .catch(error => {
+        throw new Error(error);
+      })
+  }
+
   useEffect(() => {
     if (isSingle) {
-      FireStore.getArticleByID(urlParams.id)
-        .then(article => {
-          setArticle(article);
-          setIsLoading(false);
-        })
-        .catch(error => {
-          if (error.error === 'DOCUMENT_MISSED') {
-            return <NotFound />
-          }
-        });
+      dispatch(setArticleAction(urlParams.id));
+      dispatch(setIsFirstAction(false));
+      showArticleFromUrl();
     } else {
       const regex = /<h\d>.*?<\/h\d>/gmi;
       const content = props.content.replace(regex, '');
@@ -40,6 +84,13 @@ function ArticleContainer(props) {
     }
   }, []);
 
+  useEffect(() => {
+    if (article && isSingle && state.currentArticleId !== article.id) {
+      history.push('/article/' + state.currentArticleId)
+      showArticleFromUrl();
+    }
+  }, [state.currentArticleId])
+
   const openArticle = () => {
     window.scrollTo({
       top: 0
@@ -47,11 +98,34 @@ function ArticleContainer(props) {
     dispatch(setArticleAction(article.id));
   };
 
+  const onPrev = (e) => {
+    e.preventDefault();
+
+    if (!state.isFirst) {
+      showSiblingArticle('prev');
+    }
+  }
+
+  const onNext = (e) => {
+    e.preventDefault();
+
+    if (!state.isLast) {
+      showSiblingArticle('next');
+    }
+  }
+
   return (
     isLoading ? (
       <Loader />
     ) : (
-        <Article {...article} onOpenArticle={openArticle} isSingle={isSingle} />
+        <Article
+          {...article}
+          onOpenArticle={openArticle}
+          isSingle={isSingle}
+          onPrev={onPrev}
+          onNext={onNext}
+          isFirst={state.isFirst}
+          isLast={state.isLast} />
       )
   )
 }
