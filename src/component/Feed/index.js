@@ -45,10 +45,13 @@ function FeedContainer(props) {
   })
 
   useEffect(() => {
+    let categories = urlParams.categories ? urlParams.categories.split(/,\s*/) : [];
+
     FireStore.getArticles({
       limit: state.articlesPerPage + 1,
-      startAfter: urlParams['startAfter'],
-      sort: urlParams['sort']
+      startAfter: urlParams.startAfter,
+      sort: urlParams.sort,
+      categories: categories
     })
       .then((articles) => {
         if (articles.length < state.articlesPerPage + 1) {
@@ -57,7 +60,6 @@ function FeedContainer(props) {
           dispatch(setArticlesAction(articles.slice(0, articles.length - 1)));
         }
 
-        dispatch(setUrlParamsAction(urlParams));
         dispatch(setIsLastAction(isLast(articles, state.articlesPerPage, urlParams)));
         dispatch(setIsFirstAction(isFirst(articles, state.articlesPerPage, urlParams)));
       })
@@ -68,7 +70,6 @@ function FeedContainer(props) {
   }, [state.urlParams])
 
   return (
-
     <Feed articles={state.articles} />
   )
 }

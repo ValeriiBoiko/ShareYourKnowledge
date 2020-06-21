@@ -21,7 +21,7 @@ class FireStore {
     let query = FireStore.db.collection("articles").orderBy('date', options.sort);
 
     if (options.startAfter) {
-      startAfterDoc = await FireStore.db.collection("articles").doc(config.startAfter).get();
+      startAfterDoc = await FireStore.db.collection("articles").doc(options.startAfter).get();
       if (!startAfterDoc.exists) {
         return new Promise((resolve, reject) => {
           reject({
@@ -34,7 +34,9 @@ class FireStore {
       query = query.startAfter(startAfterDoc);
     }
 
-    querySnapshot = await query.limit(config.limit).get();
+    query = FireStore._categoriesToQuery(query, options.categories);
+
+    querySnapshot = await query.limit(options.limit).get();
     querySnapshot.forEach(doc => {
       articles.push({
         ...doc.data(),
@@ -80,6 +82,16 @@ class FireStore {
       autorh: 'Valerii Boiko',
       date: new Date(),
     })
+  }
+
+  static _categoriesToQuery = (query, categories) => {
+    let queryWithCats = query;
+
+    categories.forEach((cat) => {
+      queryWithCats = queryWithCats.where('categories.' + cat, '==', true);
+    });
+
+    return queryWithCats;
   }
 }
 
