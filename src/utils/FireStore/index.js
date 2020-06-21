@@ -84,6 +84,24 @@ class FireStore {
     })
   }
 
+  static getCategories = () => {
+    const categories = [];
+
+    return new Promise((resolve, reject) => {
+      FireStore.db.collection('categories').get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(cat => {
+            categories.push(cat.data().name);
+          })
+
+          resolve(categories);
+        })
+        .catch((error) => {
+          throw new Error(error);
+        });
+    });
+  }
+
   static _categoriesToQuery = (query, categories) => {
     let queryWithCats = query;
 
