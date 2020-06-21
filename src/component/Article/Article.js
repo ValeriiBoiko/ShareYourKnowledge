@@ -2,8 +2,6 @@ import React, { Fragment } from 'react';
 import { Link } from "react-router-dom";
 import styles from './Article.module.css';
 import FooterNavigation from '../FooterNavigation';
-import FireStore from '../../utils/FireStore';
-import Badge from '../Badge';
 
 function getDateFromSeconds(seconds) {
   const date = new Date(seconds * 1000);
