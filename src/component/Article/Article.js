@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styles from './Article.module.css';
 import FooterNavigation from '../FooterNavigation';
 import FireStore from '../../utils/FireStore';
+import Badge from '../Badge';
 
 function getDateFromSeconds(seconds) {
   const date = new Date(seconds * 1000);
@@ -19,10 +20,20 @@ function Article(props) {
       <h2 className={styles.title}><Link to={`/article/${props.id}`} onClick={props.onOpenArticle}>{props.title}</Link></h2>
     );
 
+  const categories = Object.keys(props.categories).map(value => {
+    return <Link
+      key={value}
+      className={styles.category}
+      to={'/feed/?categories=' + value}>{value}</Link>
+  })
+
   return (
     <Fragment>
-      <div className={styles.article + ' ' + isSingle ? styles.isSingle : ''}>
+      <div className={styles.article + ' ' + isSingle ? styles.singleArticle : ''}>
         {title}
+        <div className={styles.categories}>
+          {categories}
+        </div>
         <div className={styles.content}>
           <p dangerouslySetInnerHTML={{ __html: props.content }}></p>
         </div>
