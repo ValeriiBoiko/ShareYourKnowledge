@@ -9,12 +9,19 @@ class FireStore {
    * @param {string} startAfter 
    * @param {string} sort 
    */
-  static async getArticles(limit = null, startAfter = null, sort = 'desc') {
-    let startAfterDoc, querySnapshot, articles = [];
-    let query = FireStore.db.collection("articles").orderBy('date', sort);
+  static async getArticles(config) {
+    const options = {
+      limit: config.limit || 1,
+      startAfter: config.startAfter || null,
+      sort: config.sort || 'desc',
+      categories: config.categories || [],
+    };
 
-    if (startAfter) {
-      startAfterDoc = await FireStore.db.collection("articles").doc(startAfter).get();
+    let startAfterDoc, querySnapshot, articles = [];
+    let query = FireStore.db.collection("articles").orderBy('date', options.sort);
+
+    if (options.startAfter) {
+      startAfterDoc = await FireStore.db.collection("articles").doc(config.startAfter).get();
       if (!startAfterDoc.exists) {
         return new Promise((resolve, reject) => {
           reject({
@@ -23,12 +30,11 @@ class FireStore {
           });
         });
       }
+
+      query = query.startAfter(startAfterDoc);
     }
 
-    if (startAfter && startAfterDoc) query = query.startAfter(startAfterDoc);
-    if (limit) query = query.limit(limit);
-
-    querySnapshot = await query.get();
+    querySnapshot = await query.limit(config.limit).get();
     querySnapshot.forEach(doc => {
       articles.push({
         ...doc.data(),

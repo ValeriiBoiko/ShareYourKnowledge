@@ -41,7 +41,11 @@ function ArticleContainer(props) {
   const showSiblingArticle = (direction) => {
     setIsLoading(true);
 
-    FireStore.getArticles(1, state.currentArticleId, direction === 'prev' ? 'asc' : 'desc')
+    FireStore.getArticles({
+      limit: 1,
+      startAfter: state.currentArticleId,
+      sort: direction === 'prev' ? 'asc' : 'desc'
+    })
       .then(articles => {
         if (articles[0]) {
           history.push('/article/' + articles[0].id);

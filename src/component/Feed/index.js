@@ -45,7 +45,11 @@ function FeedContainer(props) {
   })
 
   useEffect(() => {
-    FireStore.getArticles(state.articlesPerPage + 1, urlParams['startAfter'], urlParams['sort'] || 'desc')
+    FireStore.getArticles({
+      limit: state.articlesPerPage + 1,
+      startAfter: urlParams['startAfter'],
+      sort: urlParams['sort']
+    })
       .then((articles) => {
         if (articles.length < state.articlesPerPage + 1) {
           dispatch(setArticlesAction(articles));
