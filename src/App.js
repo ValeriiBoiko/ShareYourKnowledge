@@ -11,6 +11,8 @@ import Navigation from './component/Navigation';
 import CreateArticleForm from './component/CreateArticleForm';
 import { store } from './store';
 import Notification from './component/Notification';
+import Home from './screen/Home';
+import PrivateRoute from './component/ProtectedRoute';
 
 function App() {
   var provider = new firebase.auth.GithubAuthProvider();
@@ -50,8 +52,12 @@ function App() {
               <Pagination className={'footer-navigation'} />
             </Route>
 
-            <Route path="/create-article">
+            <PrivateRoute path="/create-article" redirectTo={'/'}>
               <CreateArticleForm />
+            </PrivateRoute>
+
+            <Route path="/">
+              <Home />
             </Route>
 
           </Switch>
