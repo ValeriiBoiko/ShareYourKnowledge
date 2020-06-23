@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import firebase from '../Firebase';
+import Loader from '../Loader';
 
-function PrivateRoute(props) {
-  const [isAuthentificated, setIsAuthIsAuthentificated] = useState(false);
+function ProtectedRoute({ children, ...rest }) {
+  const [isAuthentificated, setIsAuthIsAuthentificated] = useState(null);
 
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
@@ -13,14 +14,27 @@ function PrivateRoute(props) {
     }
   })
 
+  if (isAuthentificated === null) {
+    return <Loader />
+  }
 
   return (
-    isAuthentificated ? (
-      <Route {...props} >
-        {props.children}
-      </Route>
-    ) : <Redirect to={props.redirectTo} />
+    <Route
+      {...rest}
+      render={({ location }) =>
+        isAuthentificated ? (
+          children
+        ) : (
+            <Redirect
+              to={{
+                pathname: '/login',
+                state: { from: location }
+              }}
+            />
+          )
+      }
+    />
   )
 }
 
-export default PrivateRoute;
+export default ProtectedRoute;
