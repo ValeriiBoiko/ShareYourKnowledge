@@ -2,7 +2,7 @@ import firebase from 'firebase';
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
-    apiKey: "AIzaSyDdc6aIMUk9lejyf9EEKE0Iz5ELxyl97YM",
+    apiKey: "*****************************",
     authDomain: "shareyourknowledge-31824.firebaseapp.com",
     databaseURL: "https://shareyourknowledge-31824.firebaseio.com",
     projectId: "shareyourknowledge-31824",
