@@ -111,6 +111,23 @@ class FireStore {
 
     return queryWithCats;
   }
+
+  static getAdminEmails() {
+    return new Promise((resolve, reject) => {
+      FireStore.db.collection('admins').get()
+        .then(querySnapshot => {
+          const emails = [];
+          querySnapshot.forEach(email => {
+            emails.push(email.data().email);
+          })
+
+          resolve(emails);
+        })
+        .catch(error => {
+          throw new Error(error);
+        })
+    })
+  }
 }
 
 export default FireStore;

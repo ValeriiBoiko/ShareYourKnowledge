@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import firebase from '../component/Firebase';
 import { useHistory } from 'react-router-dom';
+import FireStore from '../utils/FireStore';
 
 function Login(props) {
 
@@ -9,6 +10,11 @@ function Login(props) {
 
 
   console.log(history)
+
+  useEffect(() => {
+
+
+  }, []);
 
   // firebase.auth().onAuthStateChanged(user => {
   //   if (user) {
@@ -31,8 +37,18 @@ function Login(props) {
           firebase.auth().signInWithPopup(provider)
             .then(result => {
               if (result.user) {
-                const redirectTo = history.location.state ? history.location.state.from.pathname : '/feed';
-                history.push(redirectTo);
+                FireStore.getAdminEmails()
+                  .then(emails => {
+                    console.log(emails.indexOf(result.user.email))
+                    if (emails.indexOf(result.user.email) >= 0) {
+                      const redirectTo = '/create-article';
+                      history.push(redirectTo);
+                    } else {
+                      alert('You need to have Sigmetix corporate account to login successfully. Enjoy the reading');
+                      firebase.auth().signOut();
+                      history.push('/feed');
+                    }
+                  })
               }
             })
             .catch(error => {
