@@ -1,14 +1,23 @@
-:local(.header) {
+.header {
     padding-bottom: 1rem;
+    position: relative;
 }
 
-:local(.title) {
+.title {
     text-align: center;
     font-size: 2.5rem
 }
 
-:local(.quote h3) {
+.quote h3 {
     text-align: right;
     color: #777
 }
 
+.login {
+    display: inline-block;
+    position: absolute;
+    top: 1rem;
+    right: 0;
+    color: rgba(40,40,40,.3);
+    font-size: 1.25rem;
+}

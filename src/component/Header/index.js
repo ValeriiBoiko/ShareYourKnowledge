@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import styles from './Header.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import firebase from '../Firebase';
+import FirebaseAuth from '../../utils/FirebaseAuth';
 
 function Header(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const path = isLoggedIn ? '#' : '/login';
   const className = isLoggedIn ? 'icon-logout' : 'icon-login';
+  const history = useHistory();
 
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
@@ -15,6 +17,25 @@ function Header(props) {
       setIsLoggedIn(false);
     }
   })
+
+  const loginClick = (e) => {
+    e.preventDefault();
+
+    if (isLoggedIn) {
+      FirebaseAuth.logOut();
+      history.push('/feed');
+    } else {
+      FirebaseAuth.loginWithPopUp()
+        .then(user => {
+          history.push('/create-article');
+        })
+        .catch(error => {
+          alert(error.message);
+          FirebaseAuth.logOut();
+          history.push('/feed');
+        })
+    }
+  }
 
   return (
     <div className={styles.header}>
@@ -25,7 +46,7 @@ function Header(props) {
       </div>
       <span className={styles.limiter}></span>
 
-      <Link to={path}><span className={className}></span></Link>
+      <Link to={path}><span className={styles.login + ' ' + className} onClick={loginClick}></span></Link>
     </div>
   )
 }
