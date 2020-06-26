@@ -83,11 +83,19 @@ function ToolBar(props) {
         </select>
 
         <div className={'buttonGroup'}>
-          <a className={'buttonGroupButton ' + styles.buttonGroupButton + ' ' + isActiveModifier('PRE', 'active')}
+          <a className={'icon-code-1 buttonGroupButton ' + styles.buttonGroupButton + ' ' + isActiveModifier('PRE', 'active')}
             href='#' onClick={(e) => {
               e.preventDefault();
               props.applyCodeStyle('pre', 'p', 'code', 'noMargin')
-            }}>Code</a>
+            }}></a>
+
+          <a className={'icon-th-list buttonGroupButton ' + styles.buttonGroupButton + ' ' + isActiveModifier('UL', 'active')}
+            href='#' onClick={(e) => {
+              e.preventDefault();
+              props.applyList('insertUnorderedList');
+              // props.applyCodeStyle('pre', 'p', 'code', 'noMargin')
+            }}></a>
+
         </div>
 
       </div>

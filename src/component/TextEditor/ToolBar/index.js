@@ -4,7 +4,7 @@ import { store } from '../../../store';
 import { setModifiersAction } from '../../../actions';
 
 function ToolBarContainer(props) {
-  const {state, dispatch} = useContext(store);
+  const { state, dispatch } = useContext(store);
   const currentModifiers = state.newArticle.modifiers;
 
   const setModifiers = (modifiers) => {
@@ -36,7 +36,7 @@ function ToolBarContainer(props) {
     }
   }
 
-  function isActiveModifier (modifier, returnIfActive = false) {
+  function isActiveModifier(modifier, returnIfActive = false) {
     const isActive = currentModifiers.indexOf(modifier) >= 0;
 
     if (isActive && returnIfActive) {
@@ -47,7 +47,12 @@ function ToolBarContainer(props) {
   }
 
   return (
-    <ToolBar {...props} applyFontStyle={applyModifier} applyHeader={applyModifier} applyCodeStyle={applyFormatBlockModifier}/>
+    <ToolBar {...props}
+      applyFontStyle={applyModifier}
+      applyHeader={applyModifier}
+      applyCodeStyle={applyFormatBlockModifier}
+      applyList={applyModifier}
+    />
   )
 }
 

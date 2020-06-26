@@ -42,7 +42,7 @@ function TextEditor(props) {
           data-id='contentEditor' data-placeholder='You know what you have to do ...'
           className={'textarea ' + styles.contentTextarea}
           contentEditable={true}
-          onClick={updateModifiers} onInput={onChange}>
+          onClick={updateModifiers} onKeyPress={updateModifiers} onInput={onChange}>
         </div>
       </div>
     </div >
