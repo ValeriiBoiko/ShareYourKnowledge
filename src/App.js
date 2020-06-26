@@ -11,7 +11,6 @@ import Navigation from './component/Navigation';
 import CreateArticleForm from './component/CreateArticleForm';
 import { store } from './store';
 import Notification from './component/Notification';
-import Login from './screen/Login';
 import ProtectedRoute from './component/ProtectedRoute';
 
 function App() {
@@ -55,10 +54,6 @@ function App() {
             <ProtectedRoute path="/create-article">
               <CreateArticleForm />
             </ProtectedRoute>
-
-            <Route path="/login">
-              <Login />
-            </Route>
 
           </Switch>
 
