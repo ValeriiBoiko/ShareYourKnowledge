@@ -86,16 +86,31 @@ function ToolBar(props) {
           <a className={'icon-code-1 buttonGroupButton ' + styles.buttonGroupButton + ' ' + isActiveModifier('PRE', 'active')}
             href='#' onClick={(e) => {
               e.preventDefault();
-              props.applyCodeStyle('pre', 'p', 'code', 'noMargin')
+              props.applyCodeStyle('pre', 'p', 'code', 'no-margin')
             }}></a>
 
           <a className={'icon-th-list buttonGroupButton ' + styles.buttonGroupButton + ' ' + isActiveModifier('UL', 'active')}
             href='#' onClick={(e) => {
               e.preventDefault();
               props.applyList('insertUnorderedList');
-              // props.applyCodeStyle('pre', 'p', 'code', 'noMargin')
+              // props.applyCodeStyle('pre', 'p', 'code', 'no-margin')
             }}></a>
 
+          <div className={'icon-link buttonGroupButton ' + styles.buttonGroupButton + ' '} tabindex='0'>
+            <form className={styles.popupForm}>
+              <div className={'flex-column'}>
+                <input className={'text-input'} type="text" placeholder={'Anchor'} />
+                <input className={'text-input'} type="text" placeholder={'URL'} />
+              </div>
+              <button>ADD</button>
+            </form>
+          </div>
+
+          <a className={'icon-picture buttonGroupButton ' + styles.buttonGroupButton + ' '}
+            href='#' onClick={(e) => {
+              e.preventDefault();
+              // props.applyCodeStyle('pre', 'p', 'code', 'no-margin')
+            }}></a>
         </div>
 
       </div>

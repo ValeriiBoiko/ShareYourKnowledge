@@ -51,6 +51,11 @@ pre.code, code {
   margin: 0;
 }
 
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
  button, .button {
   display: inline-block;
   font-size: 1rem;

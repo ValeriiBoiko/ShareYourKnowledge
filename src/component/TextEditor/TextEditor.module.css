@@ -29,6 +29,7 @@
 .buttonGroupButton {
   border-bottom: 1px solid #f5f5f5 !important;
   border-top: 1px solid #f5f5f5 !important;
+  position: relative;
 }
 
 .buttonGroupButton:first-child {
@@ -61,6 +62,30 @@
 }
 
 [data-placeholder]:empty:before {
-     content: attr(data-placeholder);
-     color: #888;
+  content: attr(data-placeholder);
+  color: #888;
+}
+
+.popupForm {
+  position: absolute;
+  display: flex;
+  margin-top: 0.5rem;
+  padding: .5rem 1rem;
+  background-color: #fff;
+  border: 1px solid #777;
+  border-radius: .25rem;
+}
+
+.popupForm input {
+  width: auto;
+  margin-bottom: 0;
+  margin-right: 1rem;
+  padding: .5rem .75rem;
+  font-size: 0.8rem;
+}
+
+.popupForm button {
+  align-self: flex-end;
+  font-size: .8rem;
+  padding: .5rem 1rem;
 }
