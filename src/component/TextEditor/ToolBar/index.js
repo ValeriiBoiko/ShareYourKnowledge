@@ -1,10 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import ToolBar from './ToolBar';
 import { store } from '../../../store';
 import { setModifiersAction } from '../../../actions';
 
 function ToolBarContainer(props) {
   const { state, dispatch } = useContext(store);
+  const [isLinkFormVisible, setLinkFormVisibility] = useState(false);
+  const [linkUrl, setLinkUrl] = useState('');
+  const [isImageFormVisible, setImageFormVisibility] = useState(false);
+  const [imageUrl, setImageUrl] = useState('');
   const currentModifiers = state.newArticle.modifiers;
 
   const setModifiers = (modifiers) => {
@@ -48,10 +52,23 @@ function ToolBarContainer(props) {
 
   return (
     <ToolBar {...props}
+      isLinkFormVisible={isLinkFormVisible}
+      isImageFormVisible={isImageFormVisible}
+      linkUrl={linkUrl}
+      onLinkUrlChange={setLinkUrl}
+      imageUrl={imageUrl}
+      onImageUrlChange={setImageUrl}
       applyFontStyle={applyModifier}
       applyHeader={applyModifier}
       applyCodeStyle={applyFormatBlockModifier}
       applyList={applyModifier}
+      applyLink={format}
+      toggleLinkFormVisibility={() => {
+        setLinkFormVisibility(!isLinkFormVisible)
+      }}
+      toggleImageFormVisibility={() => {
+        setImageFormVisibility(!isImageFormVisible)
+      }}
     />
   )
 }

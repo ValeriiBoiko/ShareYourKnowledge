@@ -93,24 +93,57 @@ function ToolBar(props) {
             href='#' onClick={(e) => {
               e.preventDefault();
               props.applyList('insertUnorderedList');
-              // props.applyCodeStyle('pre', 'p', 'code', 'no-margin')
             }}></a>
 
-          <div className={'icon-link buttonGroupButton ' + styles.buttonGroupButton + ' '} tabindex='0'>
-            <form className={styles.popupForm}>
-              <div className={'flex-column'}>
-                <input className={'text-input'} type="text" placeholder={'Anchor'} />
-                <input className={'text-input'} type="text" placeholder={'URL'} />
-              </div>
-              <button>ADD</button>
-            </form>
+          <div className={'buttonGroupButton ' + styles.buttonGroupButton} onClick={() => false}>
+            <a className={'icon-link '}
+              href='#' onClick={(e) => {
+                e.preventDefault();
+                props.toggleLinkFormVisibility();
+                return false
+              }}></a>
+            {
+              props.isLinkFormVisible && (
+                <form className={styles.popupForm}>
+                  {/* <div className={'flex-column'}> */}
+                  <input value={props.linkUrl} onChange={e => {
+                    props.onLinkUrlChange(e.currentTarget.value);
+                  }} className={'text-input'} name={'url'} type="text" placeholder={'URL'} />
+                  {/* </div> */}
+                  <button onClick={(e) => {
+                    e.preventDefault();
+                    props.applyLink('createLink', props.linkUrl);
+                  }}>ADD</button>
+                </form>
+              )
+            }
           </div>
 
-          <a className={'icon-picture buttonGroupButton ' + styles.buttonGroupButton + ' '}
-            href='#' onClick={(e) => {
-              e.preventDefault();
-              // props.applyCodeStyle('pre', 'p', 'code', 'no-margin')
-            }}></a>
+          <div className={'buttonGroupButton ' + styles.buttonGroupButton}>
+            <a className={'icon-picture '}
+              href='#' onClick={(e) => {
+                e.preventDefault();
+                props.toggleImageFormVisibility();
+                return false
+              }}></a>
+
+            {
+              console.log(props)
+            }
+            {
+              props.isImageFormVisible && (
+                <form className={styles.popupForm}>
+                  <input value={props.imageUrl} onChange={e => {
+                    props.onImageUrlChange(e.currentTarget.value);
+                  }} className={'text-input'} name={'image'} type="text" placeholder={'Image URL'} />
+                  <button onClick={(e) => {
+                    e.preventDefault();
+                    props.applyLink('insertImage', props.imageUrl);
+                  }}>ADD</button>
+                </form>
+              )
+            }
+          </div>
         </div>
 
       </div>

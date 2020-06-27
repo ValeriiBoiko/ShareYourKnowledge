@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import styles from './TextEditor.module.css';
 import ToolBar from './ToolBar';
 import { store } from '../../store';
