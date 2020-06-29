@@ -83,10 +83,10 @@ function ToolBar(props) {
         </select>
 
         <div className={'buttonGroup'}>
-          <a className={'icon-code-1 buttonGroupButton ' + styles.buttonGroupButton + ' ' + isActiveModifier('SPAN.CODE', 'active')}
+          <a className={'icon-code-1 buttonGroupButton ' + styles.buttonGroupButton + ' ' + isActiveModifier('CODE', 'active')}
             href='#' onClick={(e) => {
               e.preventDefault();
-              props.applyCodeStyle('span', document.getSelection(), 'code')
+              props.applyCodeStyle('code', document.getSelection())
             }}></a>
 
           <a className={'icon-th-list buttonGroupButton ' + styles.buttonGroupButton + ' ' + isActiveModifier('UL', 'active')}

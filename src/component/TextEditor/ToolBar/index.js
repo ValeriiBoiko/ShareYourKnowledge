@@ -15,16 +15,17 @@ function ToolBarContainer(props) {
     dispatch(setModifiersAction(modifiers));
   };
 
-  const toggleCodeModifier = (tag, selection, className) => {
-    const combinedModifier = tag.toUpperCase() + '.' + className.toUpperCase();
+  const toggleCodeModifier = (tag, selection) => {
+    tag = tag.toUpperCase();
 
-    if (currentModifiers.indexOf(className) === -1 && selection.toString().length) {
-      setModifiers(currentModifiers.concat(combinedModifier));
-      document.execCommand('insertHTML', false, `<${tag} class='${className}'>${selection.toString()}</${tag}>&nbsp;`)
+    if (currentModifiers.indexOf(tag) === -1 && selection.toString().length) {
+      setModifiers(currentModifiers.concat(tag));
+      document.execCommand('insertHTML', false, `<${tag}>${selection.toString()}</${tag}>&nbsp;`)
     } else {
-      setModifiers(currentModifiers.filter(modifier => modifier !== combinedModifier));
-      if (selection.focusNode) {
-        selection.focusNode.parentNode.classList.remove(className);
+      setModifiers(currentModifiers.filter(modifier => modifier !== tag));
+      if (selection.focusNode && selection.focusNode.parentElement.nodeName === tag) {
+        const codeNode = selection.focusNode.parentElement;
+        codeNode.parentNode.replaceChild(document.createTextNode(codeNode.textContent), codeNode)
       }
     }
   };
