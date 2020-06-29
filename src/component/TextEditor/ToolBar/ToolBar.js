@@ -95,21 +95,17 @@ function ToolBar(props) {
               props.applyModifier('insertUnorderedList');
             }}></a>
 
-          <div className={'buttonGroupButton ' + styles.buttonGroupButton} onClick={() => false}>
-            <a className={'icon-link '}
-              href='#' onClick={(e) => {
-                e.preventDefault();
-                props.toggleLinkFormVisibility();
-                return false
-              }}></a>
+          <div className={'buttonGroupButton ' + styles.buttonGroupButton} tabIndex='0' onClick={(e) => {
+            e.preventDefault();
+            props.toggleLinkFormVisibility();
+          }}>
+            <span className={'icon-link '}></span>
             {
               props.isLinkFormVisible && (
                 <form className={styles.popupForm}>
-                  {/* <div className={'flex-column'}> */}
                   <input value={props.linkUrl} onChange={e => {
                     props.onLinkUrlChange(e.currentTarget.value);
                   }} className={'text-input'} name={'url'} type="text" placeholder={'URL'} />
-                  {/* </div> */}
                   <button onClick={(e) => {
                     e.preventDefault();
                     props.applyModifier('createLink', null, props.linkUrl);
@@ -119,13 +115,12 @@ function ToolBar(props) {
             }
           </div>
 
-          <div className={'buttonGroupButton ' + styles.buttonGroupButton}>
-            <a className={'icon-picture '}
-              href='#' onClick={(e) => {
-                e.preventDefault();
-                props.toggleImageFormVisibility();
-                return false
-              }}></a>
+          <div className={'buttonGroupButton ' + styles.buttonGroupButton} tabIndex="0" onClick={(e) => {
+            e.preventDefault();
+            props.toggleImageFormVisibility();
+            return false
+          }}>
+            <span className={'icon-picture '}></span>
             {
               props.isImageFormVisible && (
                 <form className={styles.popupForm}>
