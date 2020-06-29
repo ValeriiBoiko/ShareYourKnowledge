@@ -34,6 +34,10 @@
   text-align: justify;
 }
 
+.singleArticle .content {
+  color: #333;
+}
+
 .content p {
   margin-bottom: 1em;
 }
