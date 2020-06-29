@@ -54,6 +54,10 @@ function CreateArticleForm(props) {
   const onCategoryChange = (e) => {
     const regexp = /[\w\d\-_]/;
     const categories = e.currentTarget.value.split(/,\s?/).filter(category => regexp.test(category));
+    let categoriesMap = {};
+    categories.forEach(category => {
+      categoriesMap[category] = true;
+    })
 
     if (categories) {
       dispatch(setNewArticleCategoriesAction(categories));
@@ -71,7 +75,7 @@ function CreateArticleForm(props) {
 
     if (isReadyToPublish) {
       FireStore.addArticle(state.newArticle)
-        .then((docRef) => {
+        .then(() => {
           setShowLoader(false);
           showNotification('Success!', 'success');
         })
@@ -86,21 +90,21 @@ function CreateArticleForm(props) {
 
   return (
     showLoader ? <Loader /> :
-    <Fragment>
-      <ArticleForm
-        onTitleChange={onTitleChange}
-        onCategoryChange={onCategoryChange}
-        onContentChange={onContentChange}
-        onSubmit={addArticle}
-      />
+      <Fragment>
+        <ArticleForm
+          onTitleChange={onTitleChange}
+          onCategoryChange={onCategoryChange}
+          onContentChange={onContentChange}
+          onSubmit={addArticle}
+        />
 
-      <FooterNavigation className={'footer-navigation'} >
-        <Link to={'/feed'}>Back to feed</Link>
-        <Link disabled={!isReadyToPublish} onClick={() => {
-          isReadyToPublish ? addArticle() : showNotification('Fill in all form fields', 'error');
-        }}>Publish article</Link>
-      </FooterNavigation>
-    </Fragment>
+        <FooterNavigation className={'footer-navigation'} >
+          <Link to={'/feed'}>Back to feed</Link>
+          <Link disabled={!isReadyToPublish} onClick={() => {
+            isReadyToPublish ? addArticle() : showNotification('Fill in all form fields', 'error');
+          }}>Publish article</Link>
+        </FooterNavigation>
+      </Fragment>
   )
 }
 
