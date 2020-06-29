@@ -34,12 +34,13 @@ p {
   justify-content: space-between;
 }
 
-pre.code, code {
+.code, code {
+  display: inline-block;
+  padding: .01em .5em;
   background-color: #444;
-  color: #f5f5f5;
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-  font-size: 1.15rem;
+  color: #fff;
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
 }
 
 .textarea pre.code {
@@ -47,7 +48,7 @@ pre.code, code {
   padding: .15rem 1rem;
 }
 
-.noMargin {
+.no-margin {
   margin: 0;
 }
 
@@ -75,11 +76,6 @@ pre.code, code {
   background-color: #f5f5f5;
   border-bottom: 1px solid #444;
   border-top: 1px solid #444;
-}
-
-.buttonGroup .buttonGroupButton a {
-  text-decoration: none;
-  color: #444;
 }
 
 .buttonGroup .buttonGroupButton.active {

@@ -53,7 +53,7 @@ function ToolBar(props) {
         key={item.value}
         href={'#'} onClick={(e) => {
           e.preventDefault();
-          props.applyFontStyle(item.command, item.value);
+          props.applyModifier(item.command, item.value);
         }}>{item.label}</a>
     );
   })
@@ -77,22 +77,22 @@ function ToolBar(props) {
         </div>
 
         <select className={styles.dropdownModifier} id="" onChange={(e) => {
-          props.applyHeader('formatBlock', e.currentTarget.value.toUpperCase(), e.currentTarget.value);
+          props.applyModifier('formatBlock', e.currentTarget.value.toUpperCase(), e.currentTarget.value);
         }}>
           {headerOptions}
         </select>
 
         <div className={'buttonGroup'}>
-          <a className={'icon-code-1 buttonGroupButton ' + styles.buttonGroupButton + ' ' + isActiveModifier('PRE', 'active')}
+          <a className={'icon-code-1 buttonGroupButton ' + styles.buttonGroupButton + ' ' + isActiveModifier('SPAN.CODE', 'active')}
             href='#' onClick={(e) => {
               e.preventDefault();
-              props.applyCodeStyle('pre', 'p', 'code', 'no-margin')
+              props.applyCodeStyle('span', document.getSelection(), 'code')
             }}></a>
 
           <a className={'icon-th-list buttonGroupButton ' + styles.buttonGroupButton + ' ' + isActiveModifier('UL', 'active')}
             href='#' onClick={(e) => {
               e.preventDefault();
-              props.applyList('insertUnorderedList');
+              props.applyModifier('insertUnorderedList');
             }}></a>
 
           <div className={'buttonGroupButton ' + styles.buttonGroupButton} onClick={() => false}>
@@ -112,7 +112,7 @@ function ToolBar(props) {
                   {/* </div> */}
                   <button onClick={(e) => {
                     e.preventDefault();
-                    props.applyLink('createLink', props.linkUrl);
+                    props.applyModifier('createLink', null, props.linkUrl);
                   }}>ADD</button>
                 </form>
               )
@@ -126,10 +126,6 @@ function ToolBar(props) {
                 props.toggleImageFormVisibility();
                 return false
               }}></a>
-
-            {
-              console.log(props)
-            }
             {
               props.isImageFormVisible && (
                 <form className={styles.popupForm}>

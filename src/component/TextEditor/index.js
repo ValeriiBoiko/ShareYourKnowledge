@@ -22,7 +22,13 @@ function TextEditor(props) {
       currentNode.dataset && currentNode.dataset.id !== 'contentEditor'
       && currentNode.dataset.id !== 'contentEditorWrapper'
     ) {
-      currentSelectionModifiers.push(currentNode.nodeName);
+      let modifier = currentNode.nodeName;
+
+      if (currentNode.className.length) {
+        modifier += '.' + currentNode.className.toUpperCase();
+      }
+
+      currentSelectionModifiers.push(modifier);
       currentNode = currentNode.parentNode;
     }
 

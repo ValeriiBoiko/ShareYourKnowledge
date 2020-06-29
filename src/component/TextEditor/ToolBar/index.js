@@ -13,42 +13,33 @@ function ToolBarContainer(props) {
 
   const setModifiers = (modifiers) => {
     dispatch(setModifiersAction(modifiers));
-  }
+  };
 
-  const format = (command, value = null) => {
-    document.execCommand(command, false, value);
-  }
+  const toggleCodeModifier = (tag, selection, className) => {
+    const combinedModifier = tag.toUpperCase() + '.' + className.toUpperCase();
 
-  const applyFormatBlockModifier = (tag, alternateTag, tagClass, alternateTagClass) => {
-    if (!isActiveModifier(tag.toUpperCase())) {
-      applyModifier('formatBlock', tag.toUpperCase(), tag);
-      document.getSelection().focusNode.parentNode.classList.add(tagClass);
+    if (currentModifiers.indexOf(className) === -1 && selection.toString().length) {
+      setModifiers(currentModifiers.concat(combinedModifier));
+      document.execCommand('insertHTML', false, `<${tag} class='${className}'>${selection.toString()}</${tag}>&nbsp;`)
     } else {
-      setModifiers(currentModifiers.filter(modifier => modifier !== tag.toUpperCase()));
-      applyModifier('formatBlock', alternateTag.toUpperCase(), alternateTag);
-      document.getSelection().focusNode.parentNode.classList.add(alternateTagClass);
+      setModifiers(currentModifiers.filter(modifier => modifier !== combinedModifier));
+      if (selection.focusNode) {
+        selection.focusNode.parentNode.classList.remove(className);
+      }
     }
-  }
+  };
 
-  const applyModifier = (command, tag, value = null) => {
-    format(command, value);
+  const applyModifier = (command, tag = null, value = null) => {
+    document.execCommand(command, false, value);
+
+    if (!tag) return;
 
     if (currentModifiers.indexOf(tag) === -1) {
       setModifiers(currentModifiers.concat(tag));
     } else {
       setModifiers(currentModifiers.filter(modifier => modifier !== tag));
     }
-  }
-
-  function isActiveModifier(modifier, returnIfActive = false) {
-    const isActive = currentModifiers.indexOf(modifier) >= 0;
-
-    if (isActive && returnIfActive) {
-      return returnIfActive;
-    } else {
-      return isActive;
-    }
-  }
+  };
 
   return (
     <ToolBar {...props}
@@ -58,11 +49,8 @@ function ToolBarContainer(props) {
       onLinkUrlChange={setLinkUrl}
       imageUrl={imageUrl}
       onImageUrlChange={setImageUrl}
-      applyFontStyle={applyModifier}
-      applyHeader={applyModifier}
-      applyCodeStyle={applyFormatBlockModifier}
-      applyList={applyModifier}
-      applyLink={format}
+      applyModifier={applyModifier}
+      applyCodeStyle={toggleCodeModifier}
       toggleLinkFormVisibility={() => {
         setLinkFormVisibility(!isLinkFormVisible)
       }}
