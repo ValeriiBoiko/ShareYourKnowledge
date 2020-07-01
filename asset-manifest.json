@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/valeriiboiko.github.io/static/css/main.3082f338.chunk.css",
-    "main.js": "/valeriiboiko.github.io/static/js/main.5dfef6b6.chunk.js",
-    "main.js.map": "/valeriiboiko.github.io/static/js/main.5dfef6b6.chunk.js.map",
-    "runtime-main.js": "/valeriiboiko.github.io/static/js/runtime-main.69d406cf.js",
-    "runtime-main.js.map": "/valeriiboiko.github.io/static/js/runtime-main.69d406cf.js.map",
-    "static/js/2.144b3929.chunk.js": "/valeriiboiko.github.io/static/js/2.144b3929.chunk.js",
-    "static/js/2.144b3929.chunk.js.map": "/valeriiboiko.github.io/static/js/2.144b3929.chunk.js.map",
-    "index.html": "/valeriiboiko.github.io/index.html",
-    "precache-manifest.3e66ca475805406b1c5c509eef69b9c1.js": "/valeriiboiko.github.io/precache-manifest.3e66ca475805406b1c5c509eef69b9c1.js",
-    "service-worker.js": "/valeriiboiko.github.io/service-worker.js",
-    "static/css/main.3082f338.chunk.css.map": "/valeriiboiko.github.io/static/css/main.3082f338.chunk.css.map",
-    "static/js/2.144b3929.chunk.js.LICENSE.txt": "/valeriiboiko.github.io/static/js/2.144b3929.chunk.js.LICENSE.txt"
+    "main.css": "/ShareYourKnowledge/static/css/main.3082f338.chunk.css",
+    "main.js": "/ShareYourKnowledge/static/js/main.6e368b9d.chunk.js",
+    "main.js.map": "/ShareYourKnowledge/static/js/main.6e368b9d.chunk.js.map",
+    "runtime-main.js": "/ShareYourKnowledge/static/js/runtime-main.643af239.js",
+    "runtime-main.js.map": "/ShareYourKnowledge/static/js/runtime-main.643af239.js.map",
+    "static/js/2.45c6f9c3.chunk.js": "/ShareYourKnowledge/static/js/2.45c6f9c3.chunk.js",
+    "static/js/2.45c6f9c3.chunk.js.map": "/ShareYourKnowledge/static/js/2.45c6f9c3.chunk.js.map",
+    "index.html": "/ShareYourKnowledge/index.html",
+    "precache-manifest.ce99bb3f66203a4b268c6a208116cdc8.js": "/ShareYourKnowledge/precache-manifest.ce99bb3f66203a4b268c6a208116cdc8.js",
+    "service-worker.js": "/ShareYourKnowledge/service-worker.js",
+    "static/css/main.3082f338.chunk.css.map": "/ShareYourKnowledge/static/css/main.3082f338.chunk.css.map",
+    "static/js/2.45c6f9c3.chunk.js.LICENSE.txt": "/ShareYourKnowledge/static/js/2.45c6f9c3.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.69d406cf.js",
-    "static/js/2.144b3929.chunk.js",
+    "static/js/runtime-main.643af239.js",
+    "static/js/2.45c6f9c3.chunk.js",
     "static/css/main.3082f338.chunk.css",
-    "static/js/main.5dfef6b6.chunk.js"
+    "static/js/main.6e368b9d.chunk.js"
   ]
 }
