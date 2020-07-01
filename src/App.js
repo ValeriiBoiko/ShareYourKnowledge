@@ -1,12 +1,9 @@
 import React, { useContext } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, useHistory } from "react-router-dom";
 import Header from './component/Header';
-import Category from './component/Category';
 import Feed from './component/Feed';
 import Article from './component/Article';
-import firebase from './component/Firebase';
 import Pagination from './component/Pagination';
-import FooterNavigation from './component/FooterNavigation';
 import Navigation from './component/Navigation';
 import CreateArticleForm from './component/CreateArticleForm';
 import { store } from './store';
@@ -14,8 +11,15 @@ import Notification from './component/Notification';
 import ProtectedRoute from './component/ProtectedRoute';
 
 function App() {
-  var provider = new firebase.auth.GithubAuthProvider();
+  const history = useHistory();
   const { state } = useContext(store);
+  let path = localStorage.getItem('path');
+
+  if (path) {
+    localStorage.removeItem('path');
+    history.push(`/${path}`)
+  }
+
 
   return (
     <Router>
