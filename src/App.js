@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { BrowserRouter as Router, Switch, Route, useHistory } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, useHistory, Redirect } from "react-router-dom";
 import Header from './component/Header';
 import Feed from './component/Feed';
 import Article from './component/Article';
@@ -13,13 +13,6 @@ import ProtectedRoute from './component/ProtectedRoute';
 function App() {
   const history = useHistory();
   const { state } = useContext(store);
-  let path = localStorage.getItem('path');
-
-  if (path) {
-    localStorage.removeItem('path');
-    history.push(`/${path}`)
-  }
-
 
   return (
     <Router>
@@ -58,6 +51,10 @@ function App() {
             <ProtectedRoute path="/create-article">
               <CreateArticleForm />
             </ProtectedRoute>
+
+            <Route path="/" exact={true}>
+              <Redirect to="/feed" />
+            </Route>
 
           </Switch>
 
