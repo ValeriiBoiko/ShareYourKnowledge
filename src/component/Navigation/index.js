@@ -15,6 +15,9 @@ function Navigation(props) {
     FireStore.getCategories()
       .then(categories => {
         setCategories(categories)
+      })
+      .catch(() => {
+        setCategories([]);
       });
   }, []);
 

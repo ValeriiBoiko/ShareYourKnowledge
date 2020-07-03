@@ -44,35 +44,31 @@ class FireStore {
       })
     })
 
-    return new Promise((resolve, reject) => {
-      resolve(articles)
-    });
+    return Promise.resolve(articles);
   }
+
 
   static async getArticleByID(id) {
     let query = FireStore.db.collection("articles").doc(id);
-
     const articleDoc = await query.get();
-    if (!articleDoc.exists) {
-      return new Promise((resolve, reject) => {
-        reject({
-          error: "DOCUMENT_MISSED",
-          description: "There is not specified document in storage. Check the document ID."
-        });
-      });
-    }
 
     return new Promise((resolve, reject) => {
-      resolve({
-        id: articleDoc.id,
-        ...articleDoc.data()
-      })
+      if (articleDoc.exists) {
+        resolve({
+          id: articleDoc.id,
+          ...articleDoc.data()
+        })
+      } else {
+        reject({
+          error: 'DOCUMENT_MISSED'
+        });
+      }
     });
   }
 
   static addArticle(article) {
     if (!article.title || !article.content) {
-      throw new Error('At least article object should have non-empty "title" and "content" fields');
+      Promise.reject("INVALID_ARTICLE");
     }
 
     return FireStore.db.collection("articles").add({
@@ -97,7 +93,7 @@ class FireStore {
           resolve(categories);
         })
         .catch((error) => {
-          throw new Error(error);
+          reject()
         });
     });
   }
@@ -124,7 +120,7 @@ class FireStore {
           resolve(emails);
         })
         .catch(error => {
-          throw new Error(error);
+          reject("")
         })
     })
   }

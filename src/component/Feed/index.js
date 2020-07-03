@@ -64,7 +64,7 @@ function FeedContainer(props) {
         dispatch(setIsFirstAction(isFirst(articles, state.articlesPerPage, urlParams)));
       })
       .catch(error => {
-        console.log(error)
+        alert('Error happened during quering database')
       });
 
   }, [state.urlParams])

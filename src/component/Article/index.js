@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from 'react';
 import { useParams, useHistory } from "react-router-dom";
 import { store } from '../../store';
 import { setArticleAction, setIsFirstAction, setIsLastAction } from '../../actions';
-import NotFound from '../NotFound';
 import FireStore from '../../utils/FireStore';
 import { useState } from 'react';
 import Loader from '../Loader';
@@ -25,15 +24,13 @@ function ArticleContainer(props) {
         setArticle(article);
         setIsLoading(false);
       })
-      .catch(error => {
-        if (error.error === 'DOCUMENT_MISSED') {
-          return <NotFound />
-        }
+      .catch(() => {
+        history.push('/404')
       });
   }
 
   /**
-   * function that show previous or next article when it is requested via footer navigation
+   * function that shows previous or next article when it is requested via footer navigation
    * 
    * @param {string} direction specifies if previous or next article is requested. 
    * Possible values are 'prev' and 'next' 
@@ -65,8 +62,9 @@ function ArticleContainer(props) {
         }
         setIsLoading(false);
       })
-      .catch(error => {
-        throw new Error(error);
+      .catch(() => {
+        alert('Unpredicted error happened, you will be redirected');
+        history.push('/feed');
       })
   }
 

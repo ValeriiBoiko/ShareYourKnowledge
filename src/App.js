@@ -9,6 +9,7 @@ import CreateArticleForm from './component/CreateArticleForm';
 import { store } from './store';
 import Notification from './component/Notification';
 import ProtectedRoute from './component/ProtectedRoute';
+import NotFound from './component/NotFound';
 
 function App() {
   const history = useHistory();
@@ -46,6 +47,10 @@ function App() {
               <Feed />
 
               <Pagination className={'footer-navigation'} />
+            </Route>
+
+            <Route path="/404">
+              <NotFound />
             </Route>
 
             <ProtectedRoute path="/create-article">
