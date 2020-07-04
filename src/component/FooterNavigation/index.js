@@ -7,7 +7,7 @@ function FooterNavigation(props) {
       return React.cloneElement(child, {
         ...child.props,
         key: index,
-        className: child.props.className + ' ' + styles.disabled
+        className: (child.props.className || '') + ' ' + styles.disabled
       });
     }
 

@@ -64,8 +64,8 @@
 }
 
 @media screen and (max-width: 768px) {
-  .wrapper > *:first-child,
-  .wrapper > *:last-child {
-    color: rgba(0,0,0,0)
+  .wrapper > *:first-child :global(.label),
+  .wrapper > *:last-child :global(.label) {
+    display: none;
   }
 }
