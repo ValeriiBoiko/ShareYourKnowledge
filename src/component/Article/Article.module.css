@@ -43,14 +43,17 @@
   margin-bottom: 1em;
 }
 
-.metadata,
-.metadata a {
+.metadata {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   color: #777;
   font-weight: bold;
+}
+
+.metadata a {
   text-decoration: none;
+  color: #777;
 }
 
 .metadata .readMore {
@@ -65,7 +68,7 @@
   height: 1px;
   background-color: #777;
   position: absolute;
-  top: .5rem
+  top: .7em
 }
 
 .metadata .readMore:before {
@@ -76,3 +79,39 @@
   right: -100%;
 }
 
+@media screen and (max-width: 576px) {
+  .metadata {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .metadata .author {
+    flex: 1;
+    min-width: 50%;
+  }
+
+  .metadata .date {
+    flex: 1;
+    min-width: 50%;
+    text-align: right;
+  }
+
+  .metadata .readMore {
+    display: flex;
+    margin-top: .5em;
+    width: 100%;
+    align-items: center;
+    order: 1;
+    text-align: center;
+  }
+
+  .metadata .readMore:before,
+  .metadata .readMore:after {
+    position: static;
+    flex: 1;
+  }
+
+  .metadata .readMore a {
+    padding: 0 5%;
+  }
+} 
