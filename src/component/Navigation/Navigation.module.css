@@ -1,6 +1,7 @@
 .wrapper {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   background-color: #333;
 }
 
@@ -26,3 +27,25 @@
   background-color: #f5f5f5;
   color: #333;
 }
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    flex-direction: column;
+    padding: 0;
+    min-height: 2.5rem;
+  }
+
+  .toggleMenu {
+    position: absolute;
+    padding: .575rem;
+    right: 5%;
+    transform: translateX(1rem);
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    text-decoration: none;
+    line-height: 1.5rem;
+    font-size: 1.25rem;
+  }
+}
+
