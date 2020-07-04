@@ -1,6 +1,7 @@
 html {
   height: 1px;
   min-height: 100%;
+  font-size: 20px;
 }
 
 body {
@@ -13,7 +14,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #333;
-  font-size: 16px;
   line-height: 1.5;
 }
 
@@ -22,7 +22,8 @@ p {
 }
 
 #root {
-  flex: 1
+  flex: 1;
+  width: 100%;
 }
 
 .row {
@@ -129,6 +130,7 @@ h1,h2,h3,h4,h5,h6 {
 
 .App {
   height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   padding-bottom: 2rem;
@@ -164,4 +166,24 @@ h1,h2,h3,h4,h5,h6 {
     bottom: 0;
     left: 0;
     right: 0;
+}
+
+@media screen and (max-width: 768px) {
+  html {
+    height: 1px;
+    min-height: 100%;
+    font-size: 16px;
+  }
+
+  .main-navigation {
+    padding: 0 5%;
+  }
+
+  .content {
+    padding: 0 5%;
+  }
+
+  .footer-navigation {
+    padding: 0 5%;
+  }
 }

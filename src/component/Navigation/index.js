@@ -46,7 +46,7 @@ function Navigation(props) {
       <Link
         className={styles.item + ' ' + className}
         to={'/feed'} key={item}
-        onClick={(e) => onItemClick(e, item)}># {item}</Link>
+        onClick={(e) => onItemClick(e, item)}>#&nbsp;{item}</Link>
     )
   })
 
