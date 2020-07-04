@@ -37,19 +37,28 @@ function Article(props) {
         </div>
 
         <div className={styles.metadata}>
-          <span>{props.author}</span>
+          <span className={styles.author}>{props.author}</span>
           {
             !isSingle && <span className={styles.readMore}><Link to={`/article/${props.id}`} onClick={props.onOpenArticle}>Read More</Link></span>
           }
-          <span>{getDateFromSeconds(props.date.seconds)}</span>
+          <span className={styles.date}>{getDateFromSeconds(props.date.seconds)}</span>
         </div>
       </div >
 
-      <FooterNavigation className='footer-navigation'>
-        <Link disabled={props.isFirst} to={'/article/'} onClick={props.onPrev}>Newer articles</Link>
-        <Link to="/feed">Go to feed</Link>
-        <Link disabled={props.isLast} to={'/article/'} onClick={props.onNext}>Older articles</Link>
-      </FooterNavigation>
+      {
+        isSingle &&
+        <FooterNavigation className='footer-navigation'>
+          <Link disabled={props.isFirst} to={'/article/'} onClick={props.onPrev}>
+            <span className="label">Newer articles</span>
+          </Link>
+          <Link to="/feed">
+            <span className="label">Go to feed</span>
+          </Link>
+          <Link disabled={props.isLast} to={'/article/'} onClick={props.onNext}>
+            <span className="label">Older articles</span>
+          </Link>
+        </FooterNavigation>
+      }
     </Fragment>
   )
 }
