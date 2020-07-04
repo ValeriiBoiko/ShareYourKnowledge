@@ -168,7 +168,7 @@ h1,h2,h3,h4,h5,h6 {
     right: 0;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 992px) {
   html {
     height: 1px;
     min-height: 100%;
@@ -185,5 +185,12 @@ h1,h2,h3,h4,h5,h6 {
 
   .footer-navigation {
     padding: 0 5%;
+  }
+}
+
+@media screen and (max-width: 576px) { 
+  html {
+    min-width: 320px;
+    font-size: 14px;
   }
 }

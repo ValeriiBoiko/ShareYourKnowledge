@@ -9,6 +9,8 @@ function Navigation(props) {
   const urlParams = state.urlParams;
   const [categories, setCategories] = useState([]);
   const [activeCategories, setActiveCategories] = useState([]);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [isMobileMenuOpened, toggleMobileMenuOpened] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -19,12 +21,26 @@ function Navigation(props) {
       .catch(() => {
         setCategories([]);
       });
+
+    window.addEventListener('resize', onWindowResize);
+    console.log(window.innerHeight)
+    if (window.innerWidth <= 768) {
+      setShowMobileMenu(true);
+    }
   }, []);
 
   useEffect(() => {
     const categories = urlParams.categories ? urlParams.categories.split(/,\s*/) : [];
     setActiveCategories(categories)
   }, [urlParams.categories])
+
+  const onWindowResize = () => {
+    if (window.innerWidth <= 768 && !showMobileMenu) {
+      setShowMobileMenu(true);
+    } else if (window.innerWidth > 768 && showMobileMenu) {
+      setShowMobileMenu(false);
+    }
+  }
 
   const onItemClick = (e, item) => {
     e.preventDefault();
@@ -50,9 +66,22 @@ function Navigation(props) {
     )
   })
 
+  const menuIconClass = isMobileMenuOpened ? 'icon-cancel' : 'icon-menu';
+
+  console.log(menuIconClass);
+
   return (
     <div className={styles.wrapper + ' ' + props.className}>
-      {items}
+      {
+        showMobileMenu &&
+        <a
+          className={styles.toggleMenu + ' ' + menuIconClass}
+          href="#"
+          onClick={() => {
+            toggleMobileMenuOpened(!isMobileMenuOpened)
+          }}></a>
+      }
+      {isMobileMenuOpened && items}
     </div >
   )
 }
