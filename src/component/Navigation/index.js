@@ -77,7 +77,8 @@ function Navigation(props) {
         <a
           className={styles.toggleMenu + ' ' + menuIconClass}
           href="#"
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
             toggleMobileMenuOpened(!isMobileMenuOpened)
           }}></a>
       }
