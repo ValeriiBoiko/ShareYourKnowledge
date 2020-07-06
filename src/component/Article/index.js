@@ -74,7 +74,7 @@ function ArticleContainer(props) {
       dispatch(setIsFirstAction(false));
       showArticleFromUrl();
     } else {
-      const regex = /<h\d>.*?<\/h\d>/gmi;
+      const regex = /<h\d.*?>.*?<\/h\d>/gmi;
       const content = props.content.replace(regex, '');
       let article = {
         ...props,
