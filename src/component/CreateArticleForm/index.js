@@ -13,7 +13,7 @@ function CreateArticleForm(props) {
   const [isReadyToPublish, setPublishState] = useState(false);
 
   const updatePublishState = () => {
-    if (state.newArticle.title && state.newArticle.content && state.newArticle.categories.length) {
+    if (state.newArticle.title && state.newArticle.content && Object.keys(state.newArticle.categories).length) {
       if (!isReadyToPublish) {
         setPublishState(true);
       }
@@ -59,8 +59,8 @@ function CreateArticleForm(props) {
       categoriesMap[category] = true;
     })
 
-    if (categories) {
-      dispatch(setNewArticleCategoriesAction(categories));
+    if (Object.keys(categoriesMap).length) {
+      dispatch(setNewArticleCategoriesAction(categoriesMap));
     }
   }
 
@@ -88,6 +88,8 @@ function CreateArticleForm(props) {
 
   useEffect(updatePublishState, [state.newArticle]);
 
+  console.log(state.newArticle)
+
   return (
     showLoader ? <Loader /> :
       <Fragment>
@@ -100,7 +102,7 @@ function CreateArticleForm(props) {
 
         <FooterNavigation className={'footer-navigation'} >
           <Link to={'/feed'}>Back to feed</Link>
-          <Link disabled={!isReadyToPublish} onClick={() => {
+          <Link to={'#'} disabled={!isReadyToPublish} onClick={() => {
             isReadyToPublish ? addArticle() : showNotification('Fill in all form fields', 'error');
           }}>Publish article</Link>
         </FooterNavigation>
