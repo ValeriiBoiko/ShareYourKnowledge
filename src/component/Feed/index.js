@@ -1,9 +1,10 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { store } from '../../store';
 import { setArticlesAction, setUrlParamsAction, setIsFirstAction, setIsLastAction } from '../../actions';
 import FireStore from '../../utils/FireStore';
 import useQuery from '../../hooks/useQuery';
 import Feed from './Feed';
+import Loader from '../Loader';
 
 function isLast(articles, articlesPerPage, params) {
   let result = false;
@@ -34,6 +35,7 @@ function isFirst(articles, articlesPerPage, params) {
 
 function FeedContainer(props) {
   const { state, dispatch } = useContext(store);
+  const [showLoader, setShowLoader] = useState(true);
   let urlParams = state.urlParams;
 
   useQuery((params) => {
@@ -45,6 +47,7 @@ function FeedContainer(props) {
   })
 
   useEffect(() => {
+    setShowLoader(true);
     let categories = urlParams.categories ? urlParams.categories.split(/,\s*/) : [];
 
     FireStore.getArticles({
@@ -65,12 +68,15 @@ function FeedContainer(props) {
       })
       .catch(error => {
         alert('Error happened during quering database')
+      })
+      .finally(() => {
+        setShowLoader(false);
       });
 
   }, [state.urlParams])
 
   return (
-    <Feed articles={state.articles} />
+    showLoader ? <Loader /> : <Feed articles={state.articles} />
   )
 }
 

@@ -68,7 +68,7 @@ function Navigation(props) {
 
   const menuIconClass = isMobileMenuOpened ? 'icon-cancel' : 'icon-menu';
 
-  console.log(menuIconClass);
+  console.log(styles.wrapper, props.className);
 
   return (
     <div className={styles.wrapper + ' ' + props.className}>
