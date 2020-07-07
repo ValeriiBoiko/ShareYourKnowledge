@@ -49,13 +49,13 @@ function Article(props) {
         isSingle &&
         <FooterNavigation className='footer-navigation'>
           <Link disabled={props.isFirst} to={'/article/'} onClick={props.onPrev}>
-            <span className="label">Newer articles</span>
+            <span className="label">Newer article</span>
           </Link>
           <Link to="/feed">
             <span className="label">Go to feed</span>
           </Link>
           <Link disabled={props.isLast} to={'/article/'} onClick={props.onNext}>
-            <span className="label">Older articles</span>
+            <span className="label">Older article</span>
           </Link>
         </FooterNavigation>
       }

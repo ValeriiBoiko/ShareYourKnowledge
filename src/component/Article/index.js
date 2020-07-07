@@ -39,27 +39,29 @@ function ArticleContainer(props) {
     setIsLoading(true);
 
     FireStore.getArticles({
-      limit: 1,
+      limit: 2,
       startAfter: state.currentArticleId,
       sort: direction === 'prev' ? 'asc' : 'desc'
     })
       .then(articles => {
-        if (articles[0]) {
-          history.push('/article/' + articles[0].id);
-          setArticle(articles[0])
-          dispatch(setArticleAction(articles[0].id));
-          if (direction === 'prev') {
-            dispatch(setIsFirstAction(false));
-          } else {
-            dispatch(setIsLastAction(false));
-          }
+
+        history.push('/article/' + articles[0].id);
+        setArticle(articles[0])
+        dispatch(setArticleAction(articles[0].id));
+
+        if (articles.length > 1) {
+          dispatch(setIsFirstAction(false));
+          dispatch(setIsLastAction(false));
         } else {
           if (direction === 'prev') {
             dispatch(setIsFirstAction(true));
+            dispatch(setIsLastAction(false));
           } else {
             dispatch(setIsLastAction(true));
+            dispatch(setIsFirstAction(false));
           }
         }
+
         setIsLoading(false);
       })
       .catch(() => {
