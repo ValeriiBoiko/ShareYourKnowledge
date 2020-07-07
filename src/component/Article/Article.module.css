@@ -39,8 +39,9 @@
   color: #333;
 }
 
-.content p {
-  margin-bottom: 1em;
+.content p,
+.content div {
+  margin-bottom: .5em;
 }
 
 .metadata {
