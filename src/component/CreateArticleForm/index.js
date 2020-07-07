@@ -88,8 +88,6 @@ function CreateArticleForm(props) {
 
   useEffect(updatePublishState, [state.newArticle]);
 
-  console.log(state.newArticle)
-
   return (
     showLoader ? <Loader /> :
       <Fragment>

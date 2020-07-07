@@ -39,17 +39,17 @@ function ArticleContainer(props) {
     setIsLoading(true);
 
     FireStore.getArticles({
-      limit: 2,
+      limit: 1,
       startAfter: state.currentArticleId,
       sort: direction === 'prev' ? 'asc' : 'desc'
     })
       .then(articles => {
 
-        history.push('/article/' + articles[0].id);
-        setArticle(articles[0])
-        dispatch(setArticleAction(articles[0].id));
+        if (articles[0]) {
+          history.push('/article/' + articles[0].id);
+          setArticle(articles[0])
+          dispatch(setArticleAction(articles[0].id));
 
-        if (articles.length > 1) {
           dispatch(setIsFirstAction(false));
           dispatch(setIsLastAction(false));
         } else {
@@ -64,7 +64,7 @@ function ArticleContainer(props) {
 
         setIsLoading(false);
       })
-      .catch(() => {
+      .catch((error) => {
         alert('Unpredicted error happened, you will be redirected');
         history.push('/feed');
       })
@@ -74,6 +74,7 @@ function ArticleContainer(props) {
     if (isSingle) {
       dispatch(setArticleAction(urlParams.id));
       dispatch(setIsFirstAction(false));
+      dispatch(setIsLastAction(false));
       showArticleFromUrl();
     } else {
       const regex = /<h\d.*?>.*?<\/h\d>/gmi;

@@ -23,7 +23,7 @@ function Navigation(props) {
       });
 
     window.addEventListener('resize', onWindowResize);
-    console.log(window.innerHeight)
+
     if (window.innerWidth <= 768) {
       setShowMobileMenu(true);
     }
@@ -67,8 +67,6 @@ function Navigation(props) {
   })
 
   const menuIconClass = isMobileMenuOpened ? 'icon-cancel' : 'icon-menu';
-
-  console.log(styles.wrapper, props.className);
 
   return (
     <div className={styles.wrapper + ' ' + props.className}>
