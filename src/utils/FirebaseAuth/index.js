@@ -20,7 +20,7 @@ class FirebaseAuth {
           }
         })
         .catch(error => {
-          throw new Error(error);
+          alert('Error happened during authorization. Please, try later!')
         })
     })
   }
