@@ -27,6 +27,10 @@ function Navigation(props) {
     if (window.innerWidth <= 768) {
       setShowMobileMenu(true);
     }
+
+    return () => {
+      window.removeEventListener('resize');
+    }
   }, []);
 
   useEffect(() => {
@@ -35,9 +39,9 @@ function Navigation(props) {
   }, [urlParams.categories])
 
   const onWindowResize = () => {
-    if (window.innerWidth <= 768 && !showMobileMenu) {
+    if (window.innerWidth <= 768) {
       setShowMobileMenu(true);
-    } else if (window.innerWidth > 768 && showMobileMenu) {
+    } else if (window.innerWidth > 768) {
       setShowMobileMenu(false);
     }
   }
