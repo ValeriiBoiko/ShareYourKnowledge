@@ -4,13 +4,13 @@ import firebase from '../Firebase';
 import Loader from '../Loader';
 
 function ProtectedRoute({ children, ...rest }) {
-  const [isAuthentificated, setIsAuthIsAuthentificated] = useState(null);
+  const [isAuthentificated, setIsAuthentificated] = useState(null);
 
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
-      setIsAuthIsAuthentificated(true)
+      setIsAuthentificated(true)
     } else {
-      setIsAuthIsAuthentificated(false);
+      setIsAuthentificated(false);
     }
   })
 

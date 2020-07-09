@@ -75,7 +75,7 @@ class FireStore {
       title: article.title,
       categories: article.categories,
       content: article.content,
-      autorh: 'Valerii Boiko',
+      author: article.author,
       date: new Date(),
     })
   }

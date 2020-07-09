@@ -2,15 +2,25 @@ import React, { useState, useContext, Fragment, useEffect } from 'react';
 import FireStore from '../../utils/FireStore';
 import Loader from '../Loader';
 import { store } from '../../store';
-import { setNotificationAction, setNewArticleTitleAction, setNewArticleContentAction, setNewArticleCategoriesAction } from '../../actions';
+import { setNotificationAction, setNewArticleTitleAction, setNewArticleContentAction, setNewArticleCategoriesAction, setNewArticleAuthorAction } from '../../actions';
 import FooterNavigation from '../FooterNavigation';
 import { Link } from 'react-router-dom';
 import ArticleForm from './ArticleForm';
+import firebase from '../Firebase';
 
 function CreateArticleForm(props) {
   const { state, dispatch } = useContext(store);
   const [showLoader, setShowLoader] = useState(false);
   const [isReadyToPublish, setPublishState] = useState(false);
+  const user = firebase.auth().currentUser;
+
+  useEffect(() => {
+    if (user) {
+      dispatch(setNewArticleAuthorAction(user.displayName));
+    } else {
+      dispatch(setNewArticleAuthorAction(''));
+    }
+  }, []);
 
   const updatePublishState = () => {
     if (state.newArticle.title && state.newArticle.content && Object.keys(state.newArticle.categories).length) {

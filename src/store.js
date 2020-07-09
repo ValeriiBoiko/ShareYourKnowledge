@@ -14,6 +14,7 @@ const initialState = {
     categories: {},
     content: '',
     modifiers: [],
+    author: ''
   },
   notification: {
     visible: false,
