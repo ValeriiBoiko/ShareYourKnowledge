@@ -113,6 +113,7 @@
   }
 
   .metadata .readMore a {
+    flex: 1;
     padding: 0 5%;
   }
 } 
