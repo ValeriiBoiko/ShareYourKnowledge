@@ -35,15 +35,17 @@ p {
   justify-content: space-between;
 }
 
-.code, code {
+pre, code {
   display: inline-block;
   padding: 0 .25em 0 .25em;
   background-color: #f1f1f1;
   font-family: 'Courier New', monospace;
   border-radius: .2em;
+  box-sizing: border-box;
 }
 
-pre.code {
+pre {
+  display: block;
   margin: 0;
   padding: 1rem .5rem;
   width: 100%;

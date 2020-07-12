@@ -83,10 +83,16 @@ function ToolBar(props) {
         </select>
 
         <div className={'buttonGroup'}>
-          <a className={'icon-code-1 buttonGroupButton ' + styles.buttonGroupButton + ' ' + isActiveModifier('CODE', 'active')}
+          <a className={'icon-code buttonGroupButton ' + styles.buttonGroupButton + ' ' + isActiveModifier('CODE', 'active')}
             href='#' onClick={(e) => {
               e.preventDefault();
-              props.applyCodeStyle('code', document.getSelection())
+              props.applyCodeStyle('inline')
+            }}></a>
+
+          <a className={'icon-file-code buttonGroupButton ' + styles.buttonGroupButton + ' ' + isActiveModifier('PRE', 'active')}
+            href='#' onClick={(e) => {
+              e.preventDefault();
+              props.applyCodeStyle('block');
             }}></a>
 
           <a className={'icon-th-list buttonGroupButton ' + styles.buttonGroupButton + ' ' + isActiveModifier('UL', 'active')}
@@ -102,13 +108,14 @@ function ToolBar(props) {
             <span className={'icon-link '}></span>
             {
               props.isLinkFormVisible && (
-                <form className={styles.popupForm}>
+                <form className={styles.popupForm} onClick={(e) => e.stopPropagation()}>
                   <input value={props.linkUrl} onChange={e => {
                     props.onLinkUrlChange(e.currentTarget.value);
                   }} className={'text-input'} name={'url'} type="text" placeholder={'URL'} />
                   <button onClick={(e) => {
                     e.preventDefault();
                     props.applyModifier('createLink', null, props.linkUrl);
+                    props.isLinkFormVisible && props.toggleLinkFormVisibility();
                   }}>ADD</button>
                 </form>
               )

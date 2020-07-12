@@ -24,10 +24,6 @@ function TextEditor(props) {
     ) {
       let modifier = currentNode.nodeName;
 
-      if (currentNode.className.length) {
-        modifier += '.' + currentNode.className.toUpperCase();
-      }
-
       currentSelectionModifiers.push(modifier);
       currentNode = currentNode.parentNode;
     }

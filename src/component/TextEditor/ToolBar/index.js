@@ -15,15 +15,22 @@ function ToolBarContainer(props) {
     dispatch(setModifiersAction(modifiers));
   };
 
-  const toggleCodeModifier = (tag, selection) => {
-    tag = tag.toUpperCase();
+  const toggleCodeModifier = (type) => {
+    const tag = type === 'block' ? 'pre' : 'code';
+    const selection = document.getSelection();
 
     if (currentModifiers.indexOf(tag) === -1 && selection.toString().length) {
       setModifiers(currentModifiers.concat(tag));
-      document.execCommand('insertHTML', false, `<${tag}>${selection.toString()}</${tag}>&nbsp;`)
+
+      if (type === 'block') {
+        document.execCommand('formatBlock', false, `pre`);
+      } else {
+        document.execCommand('insertHTML', false, `<code>${selection.toString()}</code>&nbsp;`);
+      }
     } else {
-      setModifiers(currentModifiers.filter(modifier => modifier !== tag));
-      if (selection.focusNode && selection.focusNode.parentElement.nodeName === tag) {
+      setModifiers(currentModifiers.filter(modifier => modifier !== tag.toUpperCase()));
+
+      if (selection.focusNode && selection.focusNode.parentElement.nodeName === tag.toUpperCase()) {
         const codeNode = selection.focusNode.parentElement;
         codeNode.parentNode.replaceChild(document.createTextNode(codeNode.textContent), codeNode)
       }
