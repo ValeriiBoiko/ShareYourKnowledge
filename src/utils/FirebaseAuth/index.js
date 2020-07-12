@@ -5,6 +5,10 @@ class FirebaseAuth {
   static provider = new firebase.auth.GoogleAuthProvider();
 
   static loginWithPopUp() {
+    this.provider.setCustomParameters({
+      prompt: 'select_account'
+    })
+
     return new Promise((resolve, reject) => {
       firebase.auth().signInWithPopup(FirebaseAuth.provider)
         .then(result => {
